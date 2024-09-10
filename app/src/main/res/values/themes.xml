@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MoreCulture" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="MoreCulture" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="RoundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">80dp</item>
+    </style>
 </resources>

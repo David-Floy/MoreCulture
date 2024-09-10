@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MoreCulture</string>
+
+
+        <string name="nav_open">Navigation Drawer geöffnet</string>
+        <string name="nav_close">Navigation Drawer geschlossen</string>
+
+
 </resources>
