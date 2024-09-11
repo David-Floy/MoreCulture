@@ -1,21 +1,27 @@
 package com.example.moreculture
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import android.widget.TextView
+
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MoreCulture.R
 import com.example.moreculture.db.Event
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.count
+import com.example.moreculture.db.Place
 
 
-class EventListRecyclerViewAdapter (private val context: Context) :
+class EventListRecyclerViewAdapter(private val context: Context) :
     RecyclerView.Adapter<EventListRecyclerViewAdapter.MyViewHolder>() {
 
-    private var events = emptyList<Any>()
+    private var events: List<Event> = emptyList()
+    private var placeDistance:  List<Pair<Int, Double>> = emptyList()
+    private var placeName:  List<Pair<Int, String>> = emptyList()
     private var onEventClickListener: ((Event) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -25,26 +31,66 @@ class EventListRecyclerViewAdapter (private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentEvent = events
-        // Populate your item view with data from currentEvent
-        holder.itemView.setOnClickListener {
-            onEventClickListener?.invoke(currentEvent)
-        }
+            val currentEvent = events[position]
+            // Populate your item view with data from currentEvent
+            holder.eventTitlelList.text = currentEvent.event_name
+
+            holder.evntPlaceName.text =
+                placeName.find { it.first == currentEvent.place_id }?.second.toString()
+
+            holder.eventPlaceDistance.text =
+                placeDistance.find { it.first == currentEvent.place_id }?.second?.let { distance ->
+                    String.format(
+                        "%.0f km",
+                        distance
+                    ) // Round to nearest kilometer and format as string
+                }
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, ActivityEventDetail::class.java)
+                intent.putExtra(
+                    "EVENT_ID",
+                    events[position].event_id
+                )  // Pass the ID or any other necessary data
+                context.startActivity(intent)
+            }
+
     }
 
     override fun getItemCount(): Int {
         return events.count()
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    // ViewHolder class for your item view
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val eventTitlelList : TextView = itemView.findViewById(R.id.eventTitlelList)
+        val evntPlaceName : TextView = itemView.findViewById(R.id.eventLocationList)
+        val eventPlaceDistance : TextView = itemView.findViewById(R.id.eventDistanceList)
+    }
 
-    fun setEvents(events: Flow<List<Event>>) {
-        this.events = events
+    fun setEvents(eventsList: List<Event>) {
+        this.events += eventsList
+        Log.d("EventListActivity", "Filtered Events: $events")
         notifyDataSetChanged()
+    }
+    fun setEventPlaceData(placeData: MutableMap<Int, Triple<Double, String, Int>> ){
+        this.placeDistance += placeData.map { (id, data) -> Pair(id, data.first) }
+        this.placeName += placeData.map { (id, data) -> Pair(id, data.second) }
     }
 
     fun setOnEventClickListener(listener: (Event) -> Unit) {
         onEventClickListener = listener
     }
+
+    fun isEventListEmpty() = events.isEmpty()
+
+    fun ResetEventList(){
+        this.events = emptyList()
+        this.placeDistance = emptyList()
+        this.placeName = emptyList()
+        notifyDataSetChanged()
+    }
+
+
 
 }

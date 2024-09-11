@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     fun createTestPlaces(): List<Place> {
         return listOf(
-            Place(0, "Cool Hofen", "Green park with playground", 48.123, 11.456, "geopoint_data_1", "www.example.com/park"),
+            Place(0, "Cool Hofen", "Green park with playground", 52.520652, 13.406026, "geopoint_data_1", "www.example.com/park"),
             Place(0, "Schönhausen", "Art and history museum", 48.234, 11.567, "geopoint_data_2", "www.example.com/museum"),
             Place(0, "TheaterHamburg", "Venue for concerts and events", 48.345, 11.678, "geopoint_data_3", "www.example.com/concert_hall")
         )

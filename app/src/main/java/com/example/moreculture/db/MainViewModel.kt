@@ -13,22 +13,30 @@ import org.osmdroid.util.GeoPoint
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
+
+    //Places
     fun getPlaces(): Flow<List<PlaceWithEvents>> {
         return repository.getPlacesLiveData()
     }
 
-    // Important search
-    fun eventsForPlaceWithTags(placeId : Int, selectedTagIds: List<Int>): Flow<List<Event>> = repository.getEventsForPlaceWithTags(placeId, selectedTagIds)
-
-
-     fun getFirstPlaceName() :String? {
+    fun getFirstPlaceName() :String? {
         return repository.getFirstPlaceName()
     }
 
-    // Insert in to DB
-    suspend fun insertPlace(place: Place, geoPoint: GeoPoint) : Long { // Change return type to Long
-              return repository.insertPlace(place, geoPoint)
+    fun getPlaceName(placeId: Int): String? {
+        return repository.getPlaceNameById(placeId)
     }
+
+    suspend fun insertPlace(place: Place, geoPoint: GeoPoint) : Long { // Change return type to Long
+        return repository.insertPlace(place, geoPoint)
+    }
+
+    fun placeIdsAndGeoPoints(): Flow<List<PlaceIdAndGeoPoint>> = repository.getPlaceIdsAndGeoPoints()
+
+
+    //Events
+    // Important search
+    fun eventsForPlaceWithTags(placeId : Int, selectedTagIds: List<Int>): Flow<List<Event>> = repository.getEventsForPlaceWithTags(placeId, selectedTagIds)
 
     suspend fun insertEventWithTags(event: Event, tags: List<Int>) =
         repository.insertEventWithTags(event, tags)
@@ -37,6 +45,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         return repository.insertTags(tags)
     }
 
-    // Important search
-    fun placeIdsAndGeoPoints(): Flow<List<PlaceIdAndGeoPoint>> = repository.getPlaceIdsAndGeoPoints()
+    fun getAllEvents(): Flow<List<Event>> {
+        return repository.getAllEvents()
+    }
+
 }

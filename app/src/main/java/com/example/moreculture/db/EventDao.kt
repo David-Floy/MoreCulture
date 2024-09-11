@@ -17,14 +17,12 @@ interface EventDao {
 
     @Query(
         """
-        SELECT e.* FROM events e
-        INNER JOIN event_tags et ON e.event_id = et.event_id
-        WHERE e.place_id = :placeId AND et.tag_id IN (:selectedTagIds)
-        GROUP BY e.event_id
-        HAVING COUNT(DISTINCT et.tag_id) = :tagCount
+        SELECT DISTINCT e.* FROM events e
+    INNER JOIN event_tags et ON e.event_id = et.event_id
+    WHERE e.place_id = :placeId AND et.tag_id IN (:selectedTagIds)
         """
     )
-    fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>, tagCount: Int): Flow<List<Event>>
+    fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>): Flow<List<Event>>
 
 
 

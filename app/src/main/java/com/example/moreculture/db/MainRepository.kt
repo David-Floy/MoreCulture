@@ -15,7 +15,7 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
 
 
 
-    // Insert
+    // Places
     suspend fun insertPlace(place: Place, geoPoint: GeoPoint) :Long {
         //try {
             place.geoPoint = GeoPointConverter().fromGeoPoint(geoPoint)
@@ -30,13 +30,27 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
         }*/
     }
 
-
     fun getPlaceIdsAndGeoPoints(): Flow<List<PlaceIdAndGeoPoint>> = placeDao.getPlaceIdsAndGeoPoints()
 
-    fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>): Flow<List<Event>> {
-        return eventDao.getEventsForPlaceWithTags(placeId, selectedTagIds, selectedTagIds.size)
+    fun getPlaceNameById(placeId: Int): String? {
+        return placeDao.getPlaceNameById(placeId)
     }
 
+    fun getFirstPlaceName(): String? {
+        return db.PlaceDao().getFirstPlaceName()
+    }
+
+    fun getPlacesLiveData(): Flow<List<PlaceWithEvents>> {
+        return placeDao.getPlacesWithEvents()
+    }
+
+
+
+
+    //Events
+    fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>): Flow<List<Event>> {
+        return eventDao.getEventsForPlaceWithTags(placeId, selectedTagIds)
+    }
 
     suspend fun insertEventWithTags(event: Event, tags: List<Int>) {
         //try {
@@ -52,17 +66,6 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
 
     suspend fun insertTags(tags: List<Tag>): List<Long> {
         return eventDao.insertTags(tags)
-    }
-
-
-
-     fun getFirstPlaceName(): String? {
-        return db.PlaceDao().getFirstPlaceName()
-    }
-
-    // get
-    fun getPlacesLiveData(): Flow<List<PlaceWithEvents>> {
-        return placeDao.getPlacesWithEvents()
     }
 
     fun getAllEvents(): Flow<List<Event>> {
