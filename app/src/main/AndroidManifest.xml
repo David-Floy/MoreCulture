@@ -38,6 +38,9 @@
         <activity android:name="com.example.moreculture.EventListActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.MapViewActivity">
+
+        </activity>
 
 
     </application>

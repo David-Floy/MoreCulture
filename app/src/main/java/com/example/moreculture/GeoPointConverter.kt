@@ -11,7 +11,7 @@ class GeoPointConverter {
         return geoPoint?.let { "${it.latitude},${it.longitude}" }
     }
 
-
+    @TypeConverter
     fun toGeoPoint(value: String?): GeoPoint? {
         return value?.let {
             val (lat, lng) = it.split(",")

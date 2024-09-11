@@ -1,11 +1,15 @@
 package com.example.moreculture
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 
@@ -20,6 +24,7 @@ import com.example.moreculture.db.Place
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.Tag
+import com.example.moreculture.db.UserAccount
 
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
@@ -29,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 
+    // Location permission request code
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
@@ -48,66 +55,75 @@ class MainActivity : AppCompatActivity() {
         drawerLayout?.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        // Buttons
-        val burgerButton = binding?.burgerMenuButton
-        burgerButton?.setOnClickListener {
-            //drawerLayout?.openDrawer(GravityCompat.START)
+        //
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
 
-        }
-
-        // BottomIsland Buttons
-        binding?.homeButton?.setOnClickListener {
-
-        }
-
-        binding?.eventListButton?.setOnClickListener {
-            val intent = Intent(this, EventListActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding?.accountButton?.setOnClickListener {
-            // Add test Data
-            lifecycleScope.launch {
-                populateDatabaseWithTestData(mainViewModel)
-
-                // Do something with the firstPlaceName (e.g., display it in a TextView)
+            // Buttons
+            val burgerButton = binding?.burgerMenuButton
+            burgerButton?.setOnClickListener {
+                //drawerLayout?.openDrawer(GravityCompat.START)
 
             }
-            //val firstPlaceName = mainViewModel.getFirstPlaceName()
-            //Log.d("MainActivity", "First Place Name: $firstPlaceName")
-        }
 
-        // Toolbar
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            // BottomIsland Buttons
+            binding?.homeButton?.setOnClickListener {
 
-        // Navigation Drawer for Admin login and information
-        navView?.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_option1 -> {
-                    // Handle option 1 click
-                    true
-                }
-                R.id.nav_option2 -> {
-                    // Handle option 2 click
-                    true
-                }
-                R.id.nav_option3 -> {
-                    // Handle option 3 click
-                    true
-                }
-                else -> false
             }
-        }
+
+            binding?.eventListButton?.setOnClickListener {
+                val intent = Intent(this, EventListActivity::class.java)
+                startActivity(intent)
+            }
+
+            binding?.accountButton?.setOnClickListener {
+                // Add test Data
+                lifecycleScope.launch {
+                    populateDatabaseWithTestData(mainViewModel)
+
+                    // Do something with the firstPlaceName (e.g., display it in a TextView)
+
+                }
+                //val firstPlaceName = mainViewModel.getFirstPlaceName()
+                //Log.d("MainActivity", "First Place Name: $firstPlaceName")
+            }
+
+            // Toolbar
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            // Navigation Drawer for Admin login and information
+            navView?.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.nav_option1 -> {
+                        // Handle option 1 click
+                        true
+                    }
+
+                    R.id.nav_option2 -> {
+                        // Handle option 2 click
+                        true
+                    }
+
+                    R.id.nav_option3 -> {
+                        // Handle option 3 click
+                        true
+                    }
+
+                    else -> false
+                }
+            }
 
 
-         // add test data
-        /*lifecycleScope.launch {
+            // add test data
+            /*lifecycleScope.launch {
             populateDatabaseWithTestData(placeViewModel, eventViewModel)
             Log.d("MainActivity", "Test data added to the database")
         }*/
 
 
-
+        }
     }
 
     override fun onDestroy() {
@@ -130,14 +146,18 @@ class MainActivity : AppCompatActivity() {
 
     fun createTestEvents(): List<Event> {
         return listOf(
-            Event(1, 1, "Winter spaß", "Outdoor music festival", "image_url_1", "2024-06-15"),
-            Event(2, 2, "Ich bin cool haus", "Modern art exhibition", "image_url_2", "2024-07-01"),
-            Event(3, 3, "Raus mit dem Regen", "Live music concert", "image_url_3", "2024-08-10")
+            Event(1, 1, "Winter spaß", "Outdoor music festival", "image_url_1", "2024-06-15", "20:00", 100.00),
+            Event(2, 2, "Ich bin cool haus", "Modern art exhibition", "image_url_2", "2024-07-01", "19:30", 50.00),
+            Event(3, 3, "Raus mit dem Regen", "Live music concert", "image_url_3", "2024-08-10", "21:00", 75.00)
         )
     }
 
+    fun createTestUser() : UserAccount{
+        return UserAccount(0,"David",0.252)
+    }
 
-    fun createTestTags(): List<Tag> {
+
+    private fun createTestTags(): List<Tag> {
         return listOf(
             Tag(1, "Music"),
             Tag(2, "Festival"),
@@ -156,6 +176,7 @@ class MainActivity : AppCompatActivity() {
         val places = createTestPlaces()
         val events = createTestEvents()
         val tags = createTestTags()
+        val user = createTestUser()
          mainViewModel.insertTags(tags)
 
          places.forEach { place -> val geoPoint = GeoPoint(place.latitude, place.longitude)
@@ -166,7 +187,10 @@ class MainActivity : AppCompatActivity() {
              Log.d("MainActivity", "Event Tag IDs: $eventTagIds")
              mainViewModel.insertEventWithTags(event, eventTagIds)
          }
+         mainViewModel.insertUserAccount(user)
 
-
+         mainViewModel.updateUserTags(1, listOf(1,5))
     }
+
+
 }

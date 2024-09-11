@@ -15,7 +15,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
 
     //Places
-    fun getPlaces(): Flow<List<PlaceWithEvents>> {
+    fun getPlaces(): Flow<List<Place>> {
         return repository.getPlacesLiveData()
     }
 
@@ -48,5 +48,30 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun getAllEvents(): Flow<List<Event>> {
         return repository.getAllEvents()
     }
+
+    fun getEventForPlace (placeId: Int): Flow<List<Event>> {
+        return repository.getEventForPlace(placeId)
+    }
+
+
+    // User
+    suspend fun insertUserAccount(userAccount: UserAccount){
+        repository.insertUser(userAccount)
+    }
+    suspend fun updateUserTags(userId : Int, tagIds: List<Int>){
+        repository.updateUserTags(userId, tagIds)
+    }
+    fun getAllUserTags(userId: Int): List<Int> {
+        return repository.getAllUserTags(userId)
+    }
+    fun getUserRadius(): Double {
+        return repository.getUserRadius()
+    }
+    suspend fun updateUserRadius(userMapRadius: Double) {
+        repository.updateUserRadius(userMapRadius)
+    }
+
+
+
 
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.osmdroid.util.GeoPoint
 
-class MainRepository (private val database: AppDatabase, private val placeDao: PlaceDao, private val eventDao: EventDao) {
+class MainRepository (private val database: AppDatabase, private val placeDao: PlaceDao, private val eventDao: EventDao, private val userDao: UserDao) {
     val db: AppDatabase = database
 
 
@@ -40,8 +40,8 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
         return db.PlaceDao().getFirstPlaceName()
     }
 
-    fun getPlacesLiveData(): Flow<List<PlaceWithEvents>> {
-        return placeDao.getPlacesWithEvents()
+    fun getPlacesLiveData(): Flow<List<Place>> {
+        return placeDao.getPlaces()
     }
 
 
@@ -71,4 +71,32 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     fun getAllEvents(): Flow<List<Event>> {
         return eventDao.getAllEvents()
     }
+    fun getEventForPlace (placeId: Int): Flow<List<Event>> {
+        return eventDao.getEventsForPlace(placeId)
+    }
+
+
+    // User
+    suspend fun insertUser(userAccount: UserAccount){
+        return userDao.insertUser(userAccount)
+    }
+
+    suspend fun updateUserTags(userId : Int, tagIds: List<Int>){
+        return userDao.updateTagIds(userId, tagIds)
+    }
+
+    fun getAllUserTags(userId: Int): List<Int> {
+        return userDao.getTagIdsForUser(userId)
+    }
+
+    fun getUserRadius(): Double {
+        return userDao.getUserRadius()
+    }
+    suspend fun updateUserRadius(userMapRadius: Double) {
+
+        return userDao.updateUserRadius(userMapRadius)
+
+    }
+
+
 }

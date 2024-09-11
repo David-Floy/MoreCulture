@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class EventViewModel(private val repository: MainRepository) : ViewModel() {
 
-    fun getEvents(): Flow<List<PlaceWithEvents>> {
+    fun getEvents(): Flow<List<Place>> {
         return repository.getPlacesLiveData()
     }
 

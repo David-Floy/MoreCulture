@@ -14,5 +14,9 @@ class ActivityEventDetail  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        binding?.backHomeButton?.setOnClickListener {
+                finish()
+        }
     }
 }

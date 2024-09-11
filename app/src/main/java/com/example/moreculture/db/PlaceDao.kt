@@ -20,7 +20,7 @@ interface PlaceDao {
 
     @Transaction
     @Query("SELECT * FROM places")
-    fun getPlacesWithEvents(): Flow<List<PlaceWithEvents>>
+    fun getPlaces(): Flow<List<Place>>
 
 
 

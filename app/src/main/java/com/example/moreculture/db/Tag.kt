@@ -37,3 +37,26 @@ data class EventWithTags(
     )
     val tags: List<Tag>
 )
+
+@Entity(
+    tableName = "user_tags",
+    primaryKeys = ["user_id", "tag_id"],
+    foreignKeys = [
+        ForeignKey(entity = UserAccount::class, parentColumns = ["user_id"], childColumns = ["user_id"]),
+        ForeignKey(entity = Tag::class, parentColumns = ["tag_id"], childColumns = ["tag_id"])
+    ]
+)
+data class UserTagCrossRef(
+    val tag_id: Int,
+    val user_id: Int
+)
+
+data class UserWithTags(
+    @Embedded val user: UserAccount,
+    @Relation(
+        parentColumn = "user_id",
+        entityColumn = "tag_id",
+        associateBy = Junction(UserTagCrossRef::class)
+    )
+    val tags: List<Tag>
+)

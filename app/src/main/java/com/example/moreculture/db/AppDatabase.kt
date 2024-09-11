@@ -5,19 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
+
 import com.example.moreculture.GeoPointConverter
 
 
 @Database(
-    entities = [Place::class, Event::class, Tag::class, EventTagCrossRef::class],
-    version = 3
+    entities = [Place::class, Event::class, Tag::class, EventTagCrossRef::class, UserAccount::class, UserTagCrossRef::class],
+    version = 5
 )
 @TypeConverters(GeoPointConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun PlaceDao(): PlaceDao
     abstract fun eventDao(): EventDao
+    abstract fun userDao(): UserDao
 
 
 

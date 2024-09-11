@@ -24,7 +24,7 @@ class MainApplication : Application() {
         super.onCreate()
 
         // Check and delete old database if needed (version mismatch) ---> NEEDS TO BE DELETED BEFORE NEXT RELEASE
-        checkAndDeleteOldDatabase(this, "main_db", 3)
+        checkAndDeleteOldDatabase(this, "main_db_test", 5)
 
 
         // Configuration for MapView needed to access the map tile Server
@@ -41,8 +41,9 @@ class MainApplication : Application() {
 
             val placeDao = db.PlaceDao()
             val eventDao = db.eventDao()
+            val userDao = db.userDao()
 
-            repository = MainRepository(db, placeDao, eventDao)
+            repository = MainRepository(db, placeDao, eventDao, userDao)
 
 
 

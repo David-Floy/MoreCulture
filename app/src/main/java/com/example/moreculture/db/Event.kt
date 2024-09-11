@@ -23,7 +23,9 @@ data class Event(
     var event_name: String,
     var event_description: String,
     var image_url: String? = null,
-    var event_date: String
+    var event_date: String,
+    var event_time: String,
+    var event_price: Double
 )
 
 data class PlaceWithEvents(
