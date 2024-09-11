@@ -1,5 +1,6 @@
 package com.example.moreculture.db
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -35,25 +36,26 @@ interface EventDao {
     fun getAllEvents(): Flow<List<Event>>
 
 
-    @Insert
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertEvent(event: Event): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTags(tags: List<Tag>): List<Long>
 
-    // Fügt die Beziehungen zwischen Event und Tags in die event_tags Tabelle ein.
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertEventTagCrossRefs(crossRefs: List<EventTagCrossRef>)
 
     @Transaction
-    suspend fun insertEventWithTags(event: Event, tags: List<Tag>) {
+    suspend fun insertEventWithTags(event: Event, tagIds: List<Int>) {
         val eventId = insertEvent(event)
-        val tagIds = insertTags(tags)
-
-        val crossRefs = tagIds.mapIndexed { index, tagId ->
-            EventTagCrossRef(eventId.toInt(), tagId.toInt())
+        val crossRefs = tagIds.map { tagId -> EventTagCrossRef(tagId, eventId.toInt()) }
+        Log.d("EventIds","Event inserted with ID: $eventId")
+        Log.d("TagIds","Tag inserted with ID: $tagIds")
+        tagIds.forEach { tagId ->  insertEventTagCrossRefs(crossRefs)
         }
-        insertEventTagCrossRefs(crossRefs)
+
+
     }
 
 

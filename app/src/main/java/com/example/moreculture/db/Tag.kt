@@ -22,11 +22,10 @@ data class Tag(
         ForeignKey(entity = Event::class, parentColumns = ["event_id"], childColumns = ["event_id"]),
         ForeignKey(entity = Tag::class, parentColumns = ["tag_id"], childColumns = ["tag_id"])
     ]
-)
+)data class EventTagCrossRef(
+    val tag_id: Int,
+    val event_id: Int
 
-data class EventTagCrossRef(
-    val event_id: Int,
-    val tag_id: Int
 )
 
 data class EventWithTags(
@@ -37,6 +36,4 @@ data class EventWithTags(
         associateBy = Junction(EventTagCrossRef::class)
     )
     val tags: List<Tag>
-
-
 )

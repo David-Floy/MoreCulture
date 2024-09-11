@@ -6,12 +6,13 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
-import org.osmdroid.util.GeoPoint
+
 
 @Dao
 interface PlaceDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPlace(place: Place): Long
 
     @Query("SELECT id, geoPoint FROM places")

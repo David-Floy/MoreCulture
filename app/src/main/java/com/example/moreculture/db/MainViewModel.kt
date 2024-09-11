@@ -30,10 +30,13 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
               return repository.insertPlace(place, geoPoint)
     }
 
-    suspend fun insertEvent(event: Event, tags: List<Tag>) =
+    suspend fun insertEventWithTags(event: Event, tags: List<Int>) =
         repository.insertEventWithTags(event, tags)
 
+    suspend fun insertTags(tags: List<Tag>): List<Long> {
+        return repository.insertTags(tags)
+    }
 
     // Important search
-    val placeIdsAndGeoPoints: Flow<List<PlaceIdAndGeoPoint>> = repository.getPlaceIdsAndGeoPoints()
+    fun placeIdsAndGeoPoints(): Flow<List<PlaceIdAndGeoPoint>> = repository.getPlaceIdsAndGeoPoints()
 }

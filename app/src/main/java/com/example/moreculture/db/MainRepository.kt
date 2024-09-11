@@ -17,17 +17,17 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
 
     // Insert
     suspend fun insertPlace(place: Place, geoPoint: GeoPoint) :Long {
-        try {
+        //try {
             place.geoPoint = GeoPointConverter().fromGeoPoint(geoPoint)
             //placeDao.insertPlace(place)
             Log.d("MainActivity", "Test data added to the database")
             return placeDao.insertPlace(place)
 
-        } catch (e: SQLiteConstraintException) {
+       /*} catch (e: SQLiteConstraintException) {
             // Handle the exception, e.g., show an error message to the user
             Log.d("InsertPlace", "Place already exists")
             throw PlaceAlreadyExistsException()
-        }
+        }*/
     }
 
 
@@ -38,16 +38,21 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     }
 
 
-    suspend fun insertEventWithTags(event: Event, tags: List<Tag>) {
-        try {
+    suspend fun insertEventWithTags(event: Event, tags: List<Int>) {
+        //try {
             eventDao.insertEventWithTags(event, tags)
-        } catch (e: SQLiteConstraintException){
+        /*} catch (e: SQLiteConstraintException){
             // Handle the exception, e.g., show an error message to the user
             Log.d("InsertEvent", "Event already exists")
+
             throw PlaceAlreadyExistsException()
-        }
+
+        }*/
     }
 
+    suspend fun insertTags(tags: List<Tag>): List<Long> {
+        return eventDao.insertTags(tags)
+    }
 
 
 

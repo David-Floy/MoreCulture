@@ -18,7 +18,7 @@ import com.example.moreculture.db.MainApplication
 
 import com.example.moreculture.db.Place
 import com.example.moreculture.db.MainViewModel
-import com.example.moreculture.db.PlaceViewModelFactory
+import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.Tag
 
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private val mainViewModel : MainViewModel by viewModels {
-        PlaceViewModelFactory((application as MainApplication).repository)
+        MainViewModelFactory((application as MainApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.eventListButton?.setOnClickListener {
-            //val intent = Intent(this, EventListActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, EventListActivity::class.java)
+            startActivity(intent)
         }
 
         binding?.accountButton?.setOnClickListener {
@@ -130,21 +130,20 @@ class MainActivity : AppCompatActivity() {
 
     fun createTestEvents(): List<Event> {
         return listOf(
-            Event(0, 1, "Winter spaß", "Outdoor music festival", "image_url_1", "2024-06-15"),
-            Event(0, 3, "Ich bin cool haus", "Modern art exhibition", "image_url_2", "2024-07-01"),
-            Event(0, 2, "Raus mit dem Regen", "Live music concert", "image_url_3", "2024-08-10")
+            Event(1, 1, "Winter spaß", "Outdoor music festival", "image_url_1", "2024-06-15"),
+            Event(2, 2, "Ich bin cool haus", "Modern art exhibition", "image_url_2", "2024-07-01"),
+            Event(3, 3, "Raus mit dem Regen", "Live music concert", "image_url_3", "2024-08-10")
         )
     }
 
 
     fun createTestTags(): List<Tag> {
         return listOf(
-            Tag(0, "Music"),
-            Tag(0, "Festival"),
-
-            Tag(0, "Art"),
-            Tag(0, "Exhibition"),
-            Tag(0, "Concert")
+            Tag(1, "Music"),
+            Tag(2, "Festival"),
+            Tag(3, "Art"),
+            Tag(4, "Exhibition"),
+            Tag(5, "Concert")
         )
     }
     val eventTags = mapOf(
@@ -157,14 +156,15 @@ class MainActivity : AppCompatActivity() {
         val places = createTestPlaces()
         val events = createTestEvents()
         val tags = createTestTags()
+         mainViewModel.insertTags(tags)
 
          places.forEach { place -> val geoPoint = GeoPoint(place.latitude, place.longitude)
              mainViewModel.insertPlace(place, geoPoint)
          }
          events.forEach { event ->
-             val eventTagIds = eventTags[event.event_id] ?: emptyList() // Get tag IDs for the event
-             val eventTagsForEvent = tags.filter { it.tag_id in eventTagIds } // Get the actual Tag objects
-             mainViewModel.insertEvent(event, eventTagsForEvent) // Pass tags to insertEvent
+             val eventTagIds = eventTags[event.event_id] ?: emptyList()
+             Log.d("MainActivity", "Event Tag IDs: $eventTagIds")
+             mainViewModel.insertEventWithTags(event, eventTagIds)
          }
 
 

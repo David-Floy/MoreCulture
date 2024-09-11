@@ -15,20 +15,27 @@ import com.example.MoreCulture.databinding.ActivityMainBinding
 import com.example.moreculture.db.EventViewModel
 import com.example.moreculture.db.EventViewModelFactory
 import com.example.moreculture.db.MainApplication
+import com.example.moreculture.db.MainViewModel
+import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.Tag
 import kotlinx.coroutines.launch
+import org.osmdroid.util.GeoPoint
 
-/*class EventListActivity : AppCompatActivity() {
+class EventListActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventAdapter: EventListRecyclerViewAdapter
 
-    private val eventViewModel : EventViewModel by viewModels {
-        EventViewModelFactory((application as MainApplication).repository)
+
+
+    private val mainViewModel : MainViewModel by viewModels {
+        MainViewModelFactory((application as MainApplication).repository)
     }
 
+
+    private val defaultMarkerLocation = GeoPoint(52.5200, 13.4050)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,16 +63,22 @@ import kotlinx.coroutines.launch
 
        // Or any other layout manager
 
-        /*lifecycleScope.launch {
-            eventViewModel.getSortedEvents(tagUserList).collect { sortedEvents ->
-                Log.d("EventListActivity", "Sorted events received: $sortedEvents")
-                eventAdapter.setEvents(sortedEvents)
+        lifecycleScope.launch {
+            mainViewModel.placeIdsAndGeoPoints().collect { places ->
+                val filteredPlaces = places.filter { (id, geoPoint) ->
+                    val distance = GeoUtility().calculateDistance(defaultMarkerLocation, GeoPointConverter.toGeoPoint(it))
+                    distance <= 100
+                } ?: false
+
+                val filteredEvents = mainViewModel.eventsForPlaceWithTags(filteredPlaces[0].id, tagUserList.map { it.tag_id })
+
+                eventAdapter.setEvents(filteredEvents)
             }
         }
 
         eventAdapter.setOnEventClickListener { event ->
             // Handle the event click, e.g., navigate to details screen
-        }*/
+        }
     }
 
     override fun onDestroy() {
@@ -74,4 +87,4 @@ import kotlinx.coroutines.launch
 
     }
 
-}*/
+}

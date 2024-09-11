@@ -7,13 +7,16 @@ import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MoreCulture.R
+import com.example.moreculture.db.Event
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.count
 
 
-/*class EventListRecyclerViewAdapter (private val context: Context) :
+class EventListRecyclerViewAdapter (private val context: Context) :
     RecyclerView.Adapter<EventListRecyclerViewAdapter.MyViewHolder>() {
 
-   /* private var events: List<EventWithTagsAndPlace> = emptyList()
-    private var onEventClickListener: ((EventWithTagsAndPlace) -> Unit)? = null
+    private var events = emptyList<Any>()
+    private var onEventClickListener: ((Event) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -22,7 +25,7 @@ import com.example.MoreCulture.R
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentEvent = events[position]
+        val currentEvent = events
         // Populate your item view with data from currentEvent
         holder.itemView.setOnClickListener {
             onEventClickListener?.invoke(currentEvent)
@@ -30,18 +33,18 @@ import com.example.MoreCulture.R
     }
 
     override fun getItemCount(): Int {
-        return events.size
+        return events.count()
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun setEvents(events: List<EventWithTagsAndPlace>) {
+    fun setEvents(events: Flow<List<Event>>) {
         this.events = events
         notifyDataSetChanged()
     }
 
-    fun setOnEventClickListener(listener: (EventWithTagsAndPlace) -> Unit) {
+    fun setOnEventClickListener(listener: (Event) -> Unit) {
         onEventClickListener = listener
     }
 
-}*/
+}
