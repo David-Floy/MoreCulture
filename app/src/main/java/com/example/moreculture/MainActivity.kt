@@ -24,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
@@ -39,12 +38,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // View Binding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
-
-
-
         val sharedPrefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val isDatabasePopulated = sharedPrefs.getBoolean("database_populated", false)
 
@@ -58,25 +51,52 @@ class MainActivity : AppCompatActivity() {
                     putBoolean("database_populated", true)
                     apply()
                 }
-            checkGpsAccessAndSetupUi()
+            checkTutorialAndGpsAccess()
         }else {
-            checkGpsAccessAndSetupUi()
+            checkTutorialAndGpsAccess()
         }
     }
-    private fun checkGpsAccessAndSetupUi(){
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request the permission
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
+    private fun checkTutorialAndGpsAccess(){
+
+        // Überprüfen, ob das Tutorial schon angezeigt wurde
+        val prefs = getSharedPreferences("myPrefs", MODE_PRIVATE)
+        val hasSeenTutorial = prefs.getBoolean("hasSeenTutorial", false)
+
+        if (!hasSeenTutorial) {
+            // Wenn das Tutorial noch nicht angezeigt wurde, öffne es
+            startActivity(Intent(this, TutorialStartActivity::class.java))
+
+            // Speichere, dass das Tutorial angezeigt wurde
+            /*val editor = prefs.edit()
+            editor.putBoolean("hasSeenTutorial", true)
+            editor.apply()
+            // Schließe die MainActivity, damit sie nicht gleichzeitig geöffnet wird
+
+             */
+            finish()
+
         } else {
-            setupUi()
+            // Wenn das Tutorial schon angezeigt wurde, öffne die Hauptanwendung
+            // View Binding
+            binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding?.root)
+
+
+
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Request the permission
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                setupUi()
+            }
         }
     }
 

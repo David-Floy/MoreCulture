@@ -53,6 +53,13 @@
         <activity android:name="com.example.moreculture.tutorial.TutorialUserMapActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialWelcomActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialHomeActivity">
+
+        </activity>
+
 
 
 
