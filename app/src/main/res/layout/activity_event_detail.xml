@@ -64,7 +64,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/eventName"
+                android:id="@+id/accountName"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center_horizontal"
@@ -197,7 +197,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
+                android:id="@+id/eventTagHolder1"
                 android:layout_width="400dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -290,7 +290,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+                app:layout_constraintTop_toBottomOf="@+id/eventTagHolder1" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
@@ -381,7 +381,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cardView5" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/CardView6"
+                android:id="@+id/tagHolder2"
                 android:layout_width="400dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -545,7 +545,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Film" />
+                                android:text="Workshop" />
                         </androidx.cardview.widget.CardView>
                     </TableRow>
 
@@ -560,7 +560,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/CardView6" />
+                app:layout_constraintTop_toBottomOf="@id/tagHolder2" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView7"

@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
+import com.google.firebase.firestore.auth.User
 
 
 @Dao
@@ -18,7 +20,11 @@ interface UserDao {
     @Query("SELECT user_mapRadius FROM users LIMIT 1")
     fun getUserRadius(): Double
 
+    @Query("SELECT * FROM users WHERE user_id = :userId")
+    fun getUserById(userId: Int) : UserAccount
 
+    @Update
+    suspend fun updateUser(user: UserAccount)
 
 
 

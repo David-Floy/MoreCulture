@@ -41,6 +41,9 @@
         <activity android:name="com.example.moreculture.MapViewActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.AccountEditActivity">
+
+        </activity>
 
 
     </application>

@@ -63,7 +63,7 @@ class EventDetailActivity  : AppCompatActivity() {
 
     }
 
-    fun setUpPageDetails(){
+    private fun setUpPageDetails(){
         val eventId = intent.getIntExtra("EVENT_ID", 0)
         lifecycleScope.launch(Dispatchers.IO) {
             event = mainViewModel.getEventById(eventId)

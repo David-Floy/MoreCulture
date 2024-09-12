@@ -1,10 +1,12 @@
 package com.example.moreculture
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,11 +25,15 @@ import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.Place
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
+import com.example.moreculture.db.PopulateDB
 import com.example.moreculture.db.Tag
 import com.example.moreculture.db.UserAccount
+import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,6 +54,44 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+
+
+        val sharedPrefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val isDatabasePopulated = sharedPrefs.getBoolean("database_populated", false)
+
+        if (!isDatabasePopulated) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val populateDb = PopulateDB(applicationContext) // Pass applicationContext
+                populateDb.populateDB(mainViewModel)
+            }
+            // Set the flag to true
+                with(sharedPrefs.edit()) {
+                    putBoolean("database_populated", true)
+                    apply()
+                }
+            checkGpsAccessAndSetupUi()
+        }else {
+            checkGpsAccessAndSetupUi()
+        }
+    }
+    private fun checkGpsAccessAndSetupUi(){
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the permission
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            setupUi()
+        }
+    }
+
+    private fun setupUi() {
         // Navigation Drawer Setup
         val navView = binding?.navView // Ersetze mit deiner NavigationView ID
         val drawerLayout: DrawerLayout? = binding?.drawerLayout
@@ -55,74 +99,70 @@ class MainActivity : AppCompatActivity() {
         drawerLayout?.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        //
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
+        // Buttons
+        val burgerButton = binding?.burgerMenuButton
+        burgerButton?.setOnClickListener {
+            //drawerLayout?.openDrawer(GravityCompat.START)
 
-            // Buttons
-            val burgerButton = binding?.burgerMenuButton
-            burgerButton?.setOnClickListener {
-                //drawerLayout?.openDrawer(GravityCompat.START)
+        }
 
-            }
+        // BottomIsland Buttons
+        binding?.homeButton?.setOnClickListener {
 
-            // BottomIsland Buttons
-            binding?.homeButton?.setOnClickListener {
+        }
 
-            }
+        binding?.eventListButton?.setOnClickListener {
+            val intent = Intent(this, EventListActivity::class.java)
+            startActivity(intent)
+        }
 
-            binding?.eventListButton?.setOnClickListener {
-                val intent = Intent(this, EventListActivity::class.java)
-                startActivity(intent)
-            }
+        binding?.accountButton?.setOnClickListener {
+            val intent = Intent(this, AccountEditActivity::class.java)
+            startActivity(intent)
 
-            binding?.accountButton?.setOnClickListener {
-                // Add test Data
-                lifecycleScope.launch {
-                    populateDatabaseWithTestData(mainViewModel)
-
-                    // Do something with the firstPlaceName (e.g., display it in a TextView)
-
-                }
-                //val firstPlaceName = mainViewModel.getFirstPlaceName()
-                //Log.d("MainActivity", "First Place Name: $firstPlaceName")
-            }
-
-            // Toolbar
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            // Navigation Drawer for Admin login and information
-            navView?.setNavigationItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.nav_option1 -> {
-                        // Handle option 1 click
-                        true
-                    }
-
-                    R.id.nav_option2 -> {
-                        // Handle option 2 click
-                        true
-                    }
-
-                    R.id.nav_option3 -> {
-                        // Handle option 3 click
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-
-
-            // add test data
+            // Add test Data
             /*lifecycleScope.launch {
-            populateDatabaseWithTestData(placeViewModel, eventViewModel)
-            Log.d("MainActivity", "Test data added to the database")
+            populateDatabaseWithTestData(mainViewModel)
+
         }*/
+        }
 
+        // Toolbar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Navigation Drawer for Admin login and information
+        navView?.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_option1 -> {
+                    // Handle option 1 click
+                    true
+                }
+
+                R.id.nav_option2 -> {
+                    // Handle option 2 click
+                    true
+                }
+
+                R.id.nav_option3 -> {
+                    // Handle option 3 click
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                setupUi()
+            } else {
+                setupUi()
+                Toast.makeText(applicationContext, "Die App benötigt GPS-Berechtigung", Toast.LENGTH_LONG).show()
+
+            }
         }
     }
 
@@ -134,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
    // Test data
 
-    fun createTestPlaces(): List<Place> {
+    /*fun createTestPlaces(): List<Place> {
         return listOf(
             Place(0, "Cool Hofen", "Green park with playground", 52.520652, 13.406026, "geopoint_data_1", "www.example.com/park"),
             Place(0, "Schönhausen", "Art and history museum", 48.234, 11.567, "geopoint_data_2", "www.example.com/museum"),
@@ -166,11 +206,7 @@ class MainActivity : AppCompatActivity() {
             Tag(5, "Concert")
         )
     }
-    val eventTags = mapOf(
-        1 to listOf(1, 2), // Event 1 has tags "Music" and "Festival"
-        2 to listOf(3, 4), // Event 2 has tags "Art" and "Exhibition"
-        3 to listOf(1, 5)  // Event 3 has tags "Music" and "Concert"
-    )
+
 
      suspend fun populateDatabaseWithTestData(mainViewModel: MainViewModel) {
         val places = createTestPlaces()
@@ -190,7 +226,7 @@ class MainActivity : AppCompatActivity() {
          mainViewModel.insertUserAccount(user)
 
          mainViewModel.updateUserTags(1, listOf(1,5))
-    }
+    }*/
 
 
 }

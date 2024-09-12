@@ -12,4 +12,5 @@
     <color name="blue">#00008C</color>
     <color name="selectBottomIsland">#5EFFFFFF</color>
     <color name="selectedTag">#72B61E</color>
+    <color name="deselectedTag">#f1807e</color>
 </resources>

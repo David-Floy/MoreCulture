@@ -101,6 +101,12 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     suspend fun updateUserRadius(userMapRadius: Double) {
 
         return userDao.updateUserRadius(userMapRadius)
+    }
+    fun getUserAccount(userid: Int): UserAccount {
+        return userDao.getUserById(userid)
+    }
+    suspend fun updateUser(user: UserAccount) {
+        return userDao.updateUser(user)
 
     }
 

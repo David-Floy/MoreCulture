@@ -77,7 +77,14 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     suspend fun updateUserRadius(userMapRadius: Double) {
         repository.updateUserRadius(userMapRadius)
     }
+    fun getUserAccount(userid: Int): UserAccount {
+        return repository.getUserAccount(userid)
+    }
+    suspend fun updateUser(user: UserAccount) {
+            repository.updateUser(user)
 
+
+    }
 
 
 
