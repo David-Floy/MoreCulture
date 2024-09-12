@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 setupUi()
             } else {
+                // Permission denied setup Ui anywa
                 setupUi()
                 Toast.makeText(applicationContext, "Die App benötigt GPS-Berechtigung", Toast.LENGTH_LONG).show()
 

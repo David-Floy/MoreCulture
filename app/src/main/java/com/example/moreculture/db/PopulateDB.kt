@@ -66,7 +66,7 @@ class PopulateDB(private val applicationContext: Context){
     }
 
     fun createTestUser() : UserAccount{
-        return UserAccount(0,"David",0.252)
+        return UserAccount(0,"David",20.00)
     }
 
 

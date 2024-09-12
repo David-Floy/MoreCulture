@@ -59,6 +59,9 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun getEventById(eventId : Int): Event{
         return repository.getEventById(eventId)
     }
+    fun getTagIdsForEvent(eventId: Int): List<Int> {
+        return repository.getTagIdsForEvent(eventId)
+    }
 
 
     // User

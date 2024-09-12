@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.widget.SeekBar
 
 import androidx.activity.viewModels
@@ -92,6 +93,9 @@ class MapViewActivity : AppCompatActivity(){
             }
 
         }
+        lifecycleScope.launch(Dispatchers.IO) {
+            userRadius = mainViewModel.getUserRadius()
+        }
 
 
         // MapView settings
@@ -146,10 +150,12 @@ class MapViewActivity : AppCompatActivity(){
                     // Add all locations as points to the map
                     addAllLocationsToMap()
 
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        userRadius = mainViewModel.getUserRadius()
-                        binding?.mapViewRadiusControl?.progress = (userRadius * 1000).toInt()
-                    }
+
+
+                    binding?.mapViewRadiusControl?.progress = (userRadius * 1000).toInt()
+                    Log.d("Progress Radius",binding?.mapViewRadiusControl?.progress.toString())
+                    Log.d("UserRadius",userRadius.toString())
+
                     // Update the circle with the new center and radius
 
                     updateCircle(userRadius)
@@ -220,14 +226,13 @@ class MapViewActivity : AppCompatActivity(){
                 val map = binding?.mapViewControl // Get the map again
                 map?.overlays?.clear()
                 addMarker(defaultMarkerLocation)
-                // Permission denied, handle accordingly (e.g., show a message)
-                // You might want to inform the user that location features won't be available
+
             }
         }
     }
 
 
-    fun addAllLocationsToMap(){
+    private fun addAllLocationsToMap(){
         var places : List<Place> = emptyList()
         var points : List<IGeoPoint> = mutableListOf()
         lifecycleScope.launch(Dispatchers.IO) {
@@ -297,7 +302,7 @@ class MapViewActivity : AppCompatActivity(){
         map?.invalidate()
     }
 
-    fun addMarker(center: GeoPoint?) {
+    private fun addMarker(center: GeoPoint?) {
          marker = Marker(map)
         marker.setPosition(center)
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)

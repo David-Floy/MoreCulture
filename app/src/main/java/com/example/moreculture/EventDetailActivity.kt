@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.TypeConverter
 import com.example.MoreCulture.databinding.ActivityEventDetailBinding
@@ -28,6 +29,10 @@ class EventDetailActivity  : AppCompatActivity() {
 
     private  var binding: ActivityEventDetailBinding? = null
     lateinit var event : Event
+    private lateinit var eventTags: MutableList<Int>
+
+    private var deselectedTagColor : Int = 0
+    private var selectedTagColor : Int = 0
 
     // Place attributes
     var latitude : Double = 0.0
@@ -47,7 +52,8 @@ class EventDetailActivity  : AppCompatActivity() {
         binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-
+        deselectedTagColor = ContextCompat.getColor(this, com.example.MoreCulture.R.color.deselectedTag)
+        selectedTagColor = ContextCompat.getColor(this, com.example.MoreCulture.R.color.selectedTag)
 
         setUpPageDetails()
 
@@ -67,7 +73,10 @@ class EventDetailActivity  : AppCompatActivity() {
         val eventId = intent.getIntExtra("EVENT_ID", 0)
         lifecycleScope.launch(Dispatchers.IO) {
             event = mainViewModel.getEventById(eventId)
-            var place = mainViewModel.getPlaceById(event.place_id)
+            val place = mainViewModel.getPlaceById(event.place_id)
+            eventTags = mainViewModel.getTagIdsForEvent(eventId).toMutableList()
+
+
             withContext(Dispatchers.Main) {
                 binding?.eventNameText?.text = event.event_name
                 binding?.eventDistanceDetail?.text = intent.getStringExtra("EVENT_DISTANCE")
@@ -77,7 +86,7 @@ class EventDetailActivity  : AppCompatActivity() {
                 binding?.eventDescription?.text = event.event_description
                 binding?.eventPrice?.text = event.event_price.toString()
 
-
+                updateTagBackgrounds(eventTags)
 
                 // MapView settings
                 map = binding?.eventMapViewDetail
@@ -90,6 +99,39 @@ class EventDetailActivity  : AppCompatActivity() {
                 map?.controller?.setZoom(13)
                 marker.title = place.location_name
 
+            }
+        }
+    }
+    private fun updateTagBackgrounds(selectedTags: List<Int>) {
+        val tagIds = selectedTags// Get a list of selected tag IDs
+
+        for (i in 1..16) {
+            val tagView = when (i) {
+                1 -> binding?.tag1
+                2 -> binding?.tag2
+                3 -> binding?.tag3
+                4 -> binding?.tag4
+                5 -> binding?.tag5
+                6 -> binding?.tag6
+                7 -> binding?.tag7
+                8 -> binding?.tag8
+                9 -> binding?.tag9
+                10 -> binding?.tag10
+                11 -> binding?.tag11
+                12 -> binding?.tag12
+                13 -> binding?.tag13
+                14 -> binding?.tag14
+                15 -> binding?.tag15
+                16 -> binding?.tag16
+                else -> null
+            }
+
+            if (tagView != null) {
+                if (tagIds.contains(i)) {
+                    tagView.setBackgroundColor(selectedTagColor)
+                } else {
+                    tagView.setBackgroundColor(deselectedTagColor)
+                }
             }
         }
     }

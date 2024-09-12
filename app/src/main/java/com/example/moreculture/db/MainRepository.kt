@@ -80,6 +80,9 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     fun getEventById(eventId : Int) : Event{
         return eventDao.getEventById(eventId)
     }
+    fun getTagIdsForEvent(eventId: Int): List<Int> {
+        return eventDao.getTagIdsForEvent(eventId)
+    }
 
 
     // User

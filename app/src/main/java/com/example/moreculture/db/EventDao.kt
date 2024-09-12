@@ -25,6 +25,8 @@ interface EventDao {
     fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>): Flow<List<Event>>
 
 
+    @Query("SELECT tag_id FROM event_tags WHERE event_id = :eventId")
+    fun getTagIdsForEvent(eventId: Int): List<Int>
 
     @Transaction
     @Query("SELECT * FROM events")
