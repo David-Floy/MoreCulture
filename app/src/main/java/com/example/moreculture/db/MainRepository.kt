@@ -43,6 +43,9 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     fun getPlacesLiveData(): Flow<List<Place>> {
         return placeDao.getPlaces()
     }
+    fun getPlaceById(placeId :Int) :Place{
+        return placeDao.getPlaceById(placeId)
+    }
 
 
 
@@ -73,6 +76,9 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     }
     fun getEventForPlace (placeId: Int): Flow<List<Event>> {
         return eventDao.getEventsForPlace(placeId)
+    }
+    fun getEventById(eventId : Int) : Event{
+        return eventDao.getEventById(eventId)
     }
 
 

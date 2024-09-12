@@ -23,12 +23,14 @@ interface PlaceDao {
     fun getPlaces(): Flow<List<Place>>
 
 
-
     @Query("SELECT location_name FROM places LIMIT 1")
      fun getFirstPlaceName(): String?
 
     @Query("SELECT location_name FROM places WHERE id = :placeId")
     fun getPlaceNameById(placeId: Int): String?
+
+    @Query("SELECT * FROM places WHERE id = :placeId")
+    fun getPlaceById(placeId: Int): Place
 
 }
 

@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.widget.SeekBar
 
 import androidx.activity.viewModels
@@ -27,7 +26,6 @@ import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.Place
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,8 +59,6 @@ class MapViewActivity : AppCompatActivity(){
     }
 
     // Place attributes
-    var latitude : Double = 0.0
-    var longitude :Double = 0.0
     var geoPoint : GeoPoint = GeoPoint(52.5200, 13.4050)
     var center : GeoPoint = GeoPoint(52.5200, 13.4050)
     var map : MapView? = null
@@ -177,7 +173,19 @@ class MapViewActivity : AppCompatActivity(){
                     val radius = (progress.toFloat() / 1000) + 0.001 // Calculate radius in km
                     userRadius = radius
                     radiusValueTextView?.text = "%.0f km".format(radius)
+
                     updateCircle(radius)
+                    val zoomLevel = when {
+                        radius <= 1.0 -> 15.0
+                        radius <= 5.0 -> 13.0
+                        radius <= 10.0 -> 12.0
+                        radius <= 20.0 -> 11.0
+                        radius <= 50.0 -> 10.0
+                        radius <= 100.0 -> 9.0
+                        else -> 8.0
+                    }
+                    mapController.setZoom(zoomLevel)
+                    mapController.animateTo(center)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -257,7 +265,7 @@ class MapViewActivity : AppCompatActivity(){
                         points: SimpleFastPointOverlay.PointAdapter?,
                         index: Int?
                     ) {
-                        val intent = Intent(this@MapViewActivity, ActivityEventDetail::class.java)
+                        val intent = Intent(this@MapViewActivity, EventDetailActivity::class.java)
                         startActivity(intent)
                         return
                     }

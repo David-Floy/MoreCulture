@@ -33,6 +33,8 @@ interface EventDao {
     @Query("SELECT * FROM events")
     fun getAllEvents(): Flow<List<Event>>
 
+    @Query("SELECT * FROM events WHERE event_id = :eventId")
+    fun getEventById(eventId: Int): Event
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -52,8 +54,6 @@ interface EventDao {
         Log.d("TagIds","Tag inserted with ID: $tagIds")
         tagIds.forEach { tagId ->  insertEventTagCrossRefs(crossRefs)
         }
-
-
     }
 
 

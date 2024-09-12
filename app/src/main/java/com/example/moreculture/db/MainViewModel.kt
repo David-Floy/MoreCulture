@@ -33,6 +33,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun placeIdsAndGeoPoints(): Flow<List<PlaceIdAndGeoPoint>> = repository.getPlaceIdsAndGeoPoints()
 
+    fun getPlaceById(placeId : Int) : Place{
+        return repository.getPlaceById(placeId)
+    }
+
 
     //Events
     // Important search
@@ -51,6 +55,9 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun getEventForPlace (placeId: Int): Flow<List<Event>> {
         return repository.getEventForPlace(placeId)
+    }
+    fun getEventById(eventId : Int): Event{
+        return repository.getEventById(eventId)
     }
 
 

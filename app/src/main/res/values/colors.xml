@@ -11,4 +11,5 @@
     <color name="green">#008C00</color>
     <color name="blue">#00008C</color>
     <color name="selectBottomIsland">#5EFFFFFF</color>
+    <color name="selectedTag">#72B61E</color>
 </resources>

@@ -6,14 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.TextView
 
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MoreCulture.R
 import com.example.moreculture.db.Event
-import com.example.moreculture.db.Place
 
 
 class EventListRecyclerViewAdapter(private val context: Context) :
@@ -35,23 +33,26 @@ class EventListRecyclerViewAdapter(private val context: Context) :
             // Populate your item view with data from currentEvent
             holder.eventTitlelList.text = currentEvent.event_name
 
-            holder.evntPlaceName.text =
-                placeName.find { it.first == currentEvent.place_id }?.second.toString()
+        var placeName = placeName.find { it.first == currentEvent.place_id }?.second.toString()
+            holder.evntPlaceName.text = placeName
 
-            holder.eventPlaceDistance.text =
-                placeDistance.find { it.first == currentEvent.place_id }?.second?.let { distance ->
-                    String.format(
-                        "%.0f km",
-                        distance
-                    ) // Round to nearest kilometer and format as string
-                }
+        var eventDistance = placeDistance.find { it.first == currentEvent.place_id }?.second?.let { distance ->
+            String.format(
+                "%.0f km",
+                distance
+            ) // Round to nearest kilometer and format as string
+        }
+
+            holder.eventPlaceDistance.text = eventDistance
 
             holder.itemView.setOnClickListener {
-                val intent = Intent(context, ActivityEventDetail::class.java)
+                val intent = Intent(context, EventDetailActivity::class.java)
                 intent.putExtra(
                     "EVENT_ID",
                     events[position].event_id
-                )  // Pass the ID or any other necessary data
+                )
+                intent.putExtra("EVENT_DISTANCE", eventDistance)
+                intent.putExtra("EVENT_PLACE", placeName)// Pass the ID or any other necessary data
                 context.startActivity(intent)
             }
 
