@@ -10,14 +10,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TagUiUtility(private  var binding : ActivityAccountEditBinding?, private var context: Context) {
+class TagUiUtility(private  var binding : ActivityAccountEditBinding?, private var context: Context, private val mainViewModel: MainViewModel) {
 
-
-
-    fun updateTagBackgrounds(selectedTags: List<Int>){
+    fun updateTagBackgrounds(selectedTags: MutableList<Int>){
 
         val deselectedTagColor  = ContextCompat.getColor(context, R.color.deselectedTag)
-         val selectedTagColor = ContextCompat.getColor(context, R.color.selectedTag)
+        val selectedTagColor = ContextCompat.getColor(context, R.color.selectedTag)
+
 
         for (i in 1..16) {
             val tagView = when (i) {

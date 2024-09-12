@@ -19,6 +19,7 @@ import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.PopulateDB
+import com.example.moreculture.tutorial.TutorialStartActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -96,7 +97,8 @@ class MainActivity : AppCompatActivity() {
 
         // BottomIsland Buttons
         binding?.homeButton?.setOnClickListener {
-
+            val intent = Intent(this, TutorialStartActivity::class.java)
+            startActivity(intent)
         }
 
         binding?.eventListButton?.setOnClickListener {

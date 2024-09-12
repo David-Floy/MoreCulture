@@ -30,7 +30,9 @@ class AccountEditActivity : AppCompatActivity() {
 
     private var deselectedTagColor : Int = 0
     private var selectedTagColor : Int = 0
-    private lateinit var tagUiUtility : TagUiUtility
+    private val tagUiUtility : TagUiUtility by lazy {
+       TagUiUtility(binding, this, mainViewModel)
+    }
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
@@ -44,8 +46,6 @@ class AccountEditActivity : AppCompatActivity() {
 
         deselectedTagColor = ContextCompat.getColor(this, R.color.deselectedTag)
         selectedTagColor = ContextCompat.getColor(this, R.color.selectedTag)
-
-
 
         for (i in 1..16) {
             val tagView = when (i) {
@@ -78,20 +78,20 @@ class AccountEditActivity : AppCompatActivity() {
                     userSelectedTags.add(i)
                     tagView.setBackgroundColor(selectedTagColor)
                 }
-
-            binding?.accountConfirmButton?.setOnClickListener {
-                userAccount.user_name = binding?.editAccountName?.text.toString()
-                lifecycleScope.launch {
-                    mainViewModel.updateUser(userAccount)
-                    mainViewModel.updateUserTags(1, userSelectedTags)
-                }
-                Log.d("userSelectedTags", userSelectedTags.toString())
             }
-}}
+        }
 
+        binding?.accountConfirmButton?.setOnClickListener {
+            userAccount.user_name = binding?.editAccountName?.text.toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                mainViewModel.updateUser(userAccount)
+                mainViewModel.updateUserTags(1, userSelectedTags)
 
+            }
+            Log.d("userSelectedTags", userSelectedTags.toString())
+            finish()
+        }
 
-    tagUiUtility = TagUiUtility(binding, this)
     }
 
     private fun setUpPageDetails(){
@@ -101,45 +101,12 @@ class AccountEditActivity : AppCompatActivity() {
 
             withContext(Dispatchers.Main) {
                 binding?.editAccountName?.setText(userAccount.user_name)
-                //tagUiUtility.updateTagBackgrounds(userSelectedTags)
-                updateTagBackgrounds(userSelectedTags)
+                tagUiUtility.updateTagBackgrounds(userSelectedTags)
+                //updateTagBackgrounds(userSelectedTags)
             }
         }
     }
 
-    private fun updateTagBackgrounds(selectedTags: List<Int>) {
-        val tagIds = selectedTags// Get a list of selected tag IDs
-
-        for (i in 1..16) {
-            val tagView = when (i) {
-                1 -> binding?.tag1
-                2 -> binding?.tag2
-                3 -> binding?.tag3
-                4 -> binding?.tag4
-                5 -> binding?.tag5
-                6 -> binding?.tag6
-                7 -> binding?.tag7
-                8 -> binding?.tag8
-                9 -> binding?.tag9
-                10 -> binding?.tag10
-                11 -> binding?.tag11
-                12 -> binding?.tag12
-                13 -> binding?.tag13
-                14 -> binding?.tag14
-                15 -> binding?.tag15
-                16 -> binding?.tag16
-                else -> null
-            }
-
-            if (tagView != null) {
-                if (tagIds.contains(i)) {
-                    tagView.setBackgroundColor(selectedTagColor)
-                } else {
-                    tagView.setBackgroundColor(deselectedTagColor)
-                }
-            }
-        }
-    }
 }
 
 

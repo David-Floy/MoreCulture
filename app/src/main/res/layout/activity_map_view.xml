@@ -9,11 +9,11 @@
         android:id="@+id/topIslandDetail"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="-60dp"
+        android:layout_marginTop="-80dp"
         android:elevation="5dp"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="60dp"
-        app:layout_constraintEnd_toStartOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -86,6 +86,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="40dp"
         android:elevation="5dp"
+        app:cardBackgroundColor="#D9FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -97,7 +98,7 @@
             <SeekBar
                 android:id="@+id/mapViewRadiusControl"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:layout_margin="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="146dp"
@@ -114,10 +115,10 @@
                 android:layout_marginEnd="10dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/mapViewRadiusControl"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/mapViewRadiusControl"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mapViewRadiusControl"
                 tools:text="100 Km" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

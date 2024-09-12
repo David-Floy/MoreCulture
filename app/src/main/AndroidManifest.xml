@@ -47,6 +47,13 @@
         <activity android:name="com.example.moreculture.tutorial.TutorialStartActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialUserCreationActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialUserMapActivity">
+
+        </activity>
+
 
 
     </application>

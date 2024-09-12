@@ -21,23 +21,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/userNameInput"
-                android:layout_width="350dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView8"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/divider15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider11" />
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/userNameInput"
+                        android:layout_width="350dp"
+                        android:layout_height="45dp"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Mein Name ist:"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/userNameInput"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <View
                 android:id="@+id/divider14"
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
                 android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/accountEditTagHolder2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/accountEditTagHolder1" />
@@ -47,8 +79,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/nextButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider14">
@@ -63,7 +96,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Wähle aus den Kultur Tags"
+                        android:text="Ich mag:"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/view3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -268,12 +302,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
                 android:lineSpacingExtra="1sp"
-                android:text="Bevor du loslegen kannst, benötigen wir ein paar Daten von dir. Bitte wähle die Tags aus, die dich ansprechen, und gib deinen Namen in das Textfeld ein. So können wir deine Interessen besser verstehen und dir die passenden Veranstaltungen empfehlen!"
+                android:text="Bevor du loslegen kannst, benötigen wir ein paar Daten von dir. Bitte wähle die Tags aus, die dich ansprechen, und gib deinen Namen in das Textfeld ein."
                 android:textAlignment="viewStart"
-                android:textSize="16sp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/divider11"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -283,9 +319,11 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
                 android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/cardView8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -295,20 +333,24 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
                 android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/accountEditTagHolder1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userNameInput" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/accountEditTagHolder1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/divider14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider15">
@@ -322,7 +364,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Wähle aus den Mobility Tags"
+                        android:text="Ich benötige:"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -361,6 +404,7 @@
                             android:layout_marginBottom="10dp"
                             android:background="#EAFDC9"
                             android:clickable="true"
+                            android:tooltipText="Parkplätze"
                             app:srcCompat="@drawable/parkplatz"
                             tools:srcCompat="@drawable/parkplatz" />
 
@@ -373,6 +417,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="10dp"
                             android:clickable="true"
+                            android:tooltipText="Behindertenparkplätze"
                             app:srcCompat="@drawable/behindert_p"
                             tools:srcCompat="@drawable/behindert_p" />
 
@@ -385,6 +430,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="10dp"
                             android:clickable="true"
+                            android:tooltipText="Fahrradabstellmöglichkeiten"
                             app:srcCompat="@drawable/parkplatz_f" />
 
                         <ImageView
@@ -396,6 +442,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="10dp"
                             android:clickable="true"
+                            android:tooltipText="Nahverkehranbindung"
                             app:srcCompat="@drawable/bus"
                             tools:srcCompat="@drawable/bus" />
 
@@ -408,6 +455,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="10dp"
                             android:clickable="true"
+                            android:tooltipText="Untertitel"
                             app:srcCompat="@drawable/untertitel"
                             tools:srcCompat="@drawable/untertitel" />
 
@@ -421,6 +469,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:clickable="true"
+                            android:tooltipText="Barrierefreiheit"
                             app:srcCompat="@drawable/behindert"
                             tools:srcCompat="@drawable/behindert" />
 
@@ -431,9 +480,9 @@
 
             <Button
                 android:id="@+id/nextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="20dp"
                 android:text="Weiter"
@@ -444,10 +493,10 @@
 
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:text="Zurück"
                 android:textSize="16sp"

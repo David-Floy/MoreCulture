@@ -64,6 +64,7 @@
                 android:layout_marginEnd="10dp"
                 android:lineSpacingExtra="1sp"
                 android:text="Mit dieser App findest du mühelos Kulturveranstaltungen, die genau deinen Interessen entsprechen – und das in deiner Nähe! Lass dich inspirieren und entdecke spannende Events, die perfekt zu dir passen"
+                android:textAlignment="center"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,8 +84,8 @@
 
             <Button
                 android:id="@+id/nextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="20dp"
                 android:text="Weiter"
