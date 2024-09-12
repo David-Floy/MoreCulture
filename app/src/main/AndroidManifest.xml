@@ -44,6 +44,9 @@
         <activity android:name="com.example.moreculture.AccountEditActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialStartActivity">
+
+        </activity>
 
 
     </application>

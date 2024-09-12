@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,26 +13,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-
 import com.example.MoreCulture.R
-
-
 import com.example.MoreCulture.databinding.ActivityMainBinding
-import com.example.moreculture.db.Event
 import com.example.moreculture.db.MainApplication
-
-import com.example.moreculture.db.Place
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.PopulateDB
-import com.example.moreculture.db.Tag
-import com.example.moreculture.db.UserAccount
 import kotlinx.coroutines.Dispatchers
-
 import kotlinx.coroutines.launch
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+
 
 
 class MainActivity : AppCompatActivity() {

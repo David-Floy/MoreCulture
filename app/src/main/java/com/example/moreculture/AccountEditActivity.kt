@@ -2,6 +2,7 @@ package com.example.moreculture
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -29,6 +30,7 @@ class AccountEditActivity : AppCompatActivity() {
 
     private var deselectedTagColor : Int = 0
     private var selectedTagColor : Int = 0
+    private lateinit var tagUiUtility : TagUiUtility
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
@@ -42,6 +44,7 @@ class AccountEditActivity : AppCompatActivity() {
 
         deselectedTagColor = ContextCompat.getColor(this, R.color.deselectedTag)
         selectedTagColor = ContextCompat.getColor(this, R.color.selectedTag)
+
 
 
         for (i in 1..16) {
@@ -75,16 +78,20 @@ class AccountEditActivity : AppCompatActivity() {
                     userSelectedTags.add(i)
                     tagView.setBackgroundColor(selectedTagColor)
                 }
-            }
 
             binding?.accountConfirmButton?.setOnClickListener {
                 userAccount.user_name = binding?.editAccountName?.text.toString()
-                lifecycleScope.launch(Dispatchers.IO) {
+                lifecycleScope.launch {
                     mainViewModel.updateUser(userAccount)
                     mainViewModel.updateUserTags(1, userSelectedTags)
                 }
+                Log.d("userSelectedTags", userSelectedTags.toString())
             }
-        }
+}}
+
+
+
+    tagUiUtility = TagUiUtility(binding, this)
     }
 
     private fun setUpPageDetails(){
@@ -94,6 +101,7 @@ class AccountEditActivity : AppCompatActivity() {
 
             withContext(Dispatchers.Main) {
                 binding?.editAccountName?.setText(userAccount.user_name)
+                //tagUiUtility.updateTagBackgrounds(userSelectedTags)
                 updateTagBackgrounds(userSelectedTags)
             }
         }
