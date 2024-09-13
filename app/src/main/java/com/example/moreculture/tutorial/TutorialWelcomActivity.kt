@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.MoreCulture.databinding.TutorialActivityHomeBinding
 import com.example.MoreCulture.databinding.TutorialActivityWelcomeBinding
 import com.example.moreculture.MainActivity
 import com.example.moreculture.db.MainApplication
@@ -20,21 +21,21 @@ class TutorialWelcomActivity : AppCompatActivity() {
         MainViewModelFactory((application as MainApplication).repository)
     }
 
-    private var binding: TutorialActivityWelcomeBinding? = null
+    private var welcomeBinding: TutorialActivityWelcomeBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val prefs = getSharedPreferences("myPrefs", MODE_PRIVATE)
 
 
-        binding = TutorialActivityWelcomeBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        welcomeBinding = TutorialActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(welcomeBinding?.root)
 
-        binding?.nextButton?.setOnClickListener {
+        welcomeBinding?.nextButton?.setOnClickListener{
             val intent = Intent(this, TutorialHomeActivity::class.java)
             startActivity(intent)
         }
-        binding?.skipButton?.setOnClickListener {
+        welcomeBinding?.skipButton?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             val editor = prefs.edit()
             editor.putBoolean("hasSeenTutorial", true)
@@ -46,10 +47,8 @@ class TutorialWelcomActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             userName = mainViewModel.getUserAccount(1).user_name
             withContext(Dispatchers.Main) {
-                binding?.welcomeText?.text = "Hallo $userName, das hier ist die Startseite unserer App. Über die untere Navigationsleiste kannst du alle wichtigen Funktionen der App erreichen."
+                welcomeBinding?.welcomeText?.text = "Hallo $userName, das hier ist die Startseite unserer App. Über die untere Navigationsleiste kannst du alle wichtigen Funktionen der App erreichen."
             }
-
-
         }
 
 

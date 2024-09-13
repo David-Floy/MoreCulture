@@ -4,6 +4,53 @@
 
         <string name="nav_open">Navigation Drawer geöffnet</string>
         <string name="nav_close">Navigation Drawer geschlossen</string>
+    <string name="burger_menu">Burger Menu</string>
+    <string name="account">Account</string>
+    <string name="mobility_tags_bearbeiten">Mobility Tags bearbeiten</string>
+    <string name="kultur_tags_bearbeiten">Kultur Tags bearbeiten</string>
+    <string name="theater">Theater</string>
+    <string name="konzert">Konzert</string>
+    <string name="ausstellung">Ausstellung</string>
+    <string name="kunst">Kunst</string>
+    <string name="oper">Oper</string>
+    <string name="modern">Modern</string>
+    <string name="klassisch">Klassisch</string>
+    <string name="openair">OpenAir</string>
+    <string name="kreativ">Kreativ</string>
+    <string name="workshop">Workshop</string>
+    <string name="best_tigen">Bestätigen</string>
+    <string name="event">Event</string>
+    <string name="preis">Preis:</string>
+    <string name="feed">Feed</string>
+    <string name="interessen">Interessen</string>
+    <string name="entfernung">Entfernung</string>
+    <string name="es_konnten_keine_events_f_r_dich_gefunden_werden_versuche_die_suchreichweite_zu_erh_hen">Es konnten keine Events für dich gefunden werden, versuche die Suchreichweite zu erhöhen</string>
+    <string name="list">List</string>
+    <string name="home_button">Home Button</string>
+    <string name="home">Home</string>
+    <string name="ich_will_mehr_kultur">Ich will mehr Kultur!</string>
+    <string name="map">Map</string>
+    <string name="weiter">Weiter</string>
+    <string name="zur_ck">Zurück</string>
+    <string name="skip">Skip</string>
+    <string name="welcome_text">Der Event-Feed zeigt dir standardmäßig alle Events an, die zu deinen ausgewählten Interessen passen und in deiner Nähe stattfinden. Oben rechts kannst du deinen Suchradius anpassen.</string>
+    <string name="ffnet_ein_zuff_liges_event_f_r_dich">Öffnet ein Zuffäliges Event für dich.</string>
+    <string name="interessen_zeigt_alle_events_die_zu_deinen_interessen_passen">Interessen: zeigt alle Events die zu deinen Interessen passen</string>
+    <string name="entfernung_zeigt_dir_alle_events_im_suchradius">Entfernung: zeigt dir alle Events im Suchradius</string>
+    <string name="t_discription">Oben links findest du die App-Einstellungen. Admins haben dort die Möglichkeit, neue Events hinzuzufügen. Außerdem sind dort alle wichtigen Informationen für die Hausarbeit zu finden.</string>
+    <string name="map_doppel">MAP:</string>
+    <string name="zeigt_dir_alle_kulturst_tten_auf_einer_karte_an">Zeigt dir alle Kulturstätten auf einer Karte an</string>
+    <string name="t_start_discription">Mit dieser App findest du mühelos Kulturveranstaltungen, die genau deinen Interessen entsprechen – und das in deiner Nähe! Lass dich inspirieren und entdecke spannende Events, die perfekt zu dir passen</string>
+    <string name="willkommen_bei_more_culture">Willkommen bei More Culture!</string>
+    <string name="mein_name_ist">Mein Name ist:</string>
+    <string name="ich_mag">Ich mag:</string>
+    <string name="befor_we_get_started">Bevor du loslegen kannst, benötigen wir ein paar Daten von dir. Bitte wähle die Tags aus, die dich ansprechen, und gib deinen Namen in das Textfeld ein.</string>
+    <string name="ich_ben_tige">Ich benötige:</string>
+    <string name="lege_deinen_suchradius_fest">Lege deinen Suchradius fest</string>
+    <string name="navigationsleiste">Navigationsleiste:</string>
+    <string name="der_linke_button_bringt_dich_zu_deinem_event_feed">Der linke Button bringt dich zu deinem Event-Feed.</string>
+    <string name="der_mittlere_button_f_hrt_dich_zur_startseite_zur_ck">Der mittlere Button führt dich zur Startseite zurück.</string>
+    <string name="der_rechte_button_ffnet_dein_benutzerkonto">Der rechte Button öffnet dein Benutzerkonto.</string>
 
 
 </resources>

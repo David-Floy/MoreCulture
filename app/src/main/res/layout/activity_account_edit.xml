@@ -37,7 +37,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="1dp"
                 android:background="#00FFFFFF"
-                android:contentDescription="Burger Menu"
+                android:contentDescription="@string/burger_menu"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 android:src="@android:drawable/ic_menu_revert"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center_horizontal"
-                android:text="Account"
+                android:text="@string/account"
                 android:textColor="@android:color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Mobility Tags bearbeiten"
+                android:text="@string/mobility_tags_bearbeiten"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -250,7 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="Kultur Tags bearbeiten"
+                android:text="@string/kultur_tags_bearbeiten"
                 app:layout_constraintBottom_toTopOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -296,7 +296,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Theater" />
+                            android:text="@string/theater" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -312,7 +312,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Konzert" />
+                            android:text="@string/konzert" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -328,7 +328,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Ausstellung" />
+                            android:text="@string/ausstellung" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -344,7 +344,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Kunst" />
+                            android:text="@string/kunst" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -360,7 +360,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Oper" />
+                            android:text="@string/oper" />
                     </androidx.cardview.widget.CardView>
 
                 </TableRow>
@@ -382,7 +382,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Modern" />
+                            android:text="@string/modern" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -397,7 +397,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Klassisch" />
+                            android:text="@string/klassisch" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -412,7 +412,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="OpenAir" />
+                            android:text="@string/openair" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -427,7 +427,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Kreativ" />
+                            android:text="@string/kreativ" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -443,7 +443,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Workshop" />
+                            android:text="@string/workshop" />
                     </androidx.cardview.widget.CardView>
                 </TableRow>
 
@@ -460,7 +460,7 @@
         android:backgroundTint="@color/selectedTag"
         android:paddingHorizontal="25dp"
         android:paddingVertical="10dp"
-        android:text="Bestätigen"
+        android:text="@string/best_tigen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

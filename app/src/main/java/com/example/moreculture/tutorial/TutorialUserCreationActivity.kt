@@ -41,10 +41,7 @@ class TutorialUserCreationActivity : AppCompatActivity() {
             val intent = Intent(this, TutorialStartActivity::class.java)
             startActivity(intent)
         }
-        binding?.nextButton?.setOnClickListener {
-            val intent = Intent(this, TutorialStartActivity::class.java)
-            startActivity(intent)
-        }
+
         setUpPageDetails()
 
         deselectedTagColor = ContextCompat.getColor(this, R.color.deselectedTag)

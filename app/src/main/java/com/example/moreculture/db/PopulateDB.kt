@@ -40,9 +40,9 @@ class PopulateDB(private val applicationContext: Context){
                 Log.d("MainActivity", "Event Tag IDs: $eventTagIds")
                 mainViewModel.insertEventWithTags(event, eventTagIds)
             }
-            mainViewModel.insertUserAccount(user)
+            //mainViewModel.insertUserAccount(user)
 
-            mainViewModel.updateUserTags(1, listOf(1, 5))
+            //mainViewModel.updateUserTags(1, listOf(1, 5))
 
         }
     }

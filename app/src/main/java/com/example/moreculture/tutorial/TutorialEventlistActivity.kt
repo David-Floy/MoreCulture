@@ -3,32 +3,28 @@ package com.example.moreculture.tutorial
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.MoreCulture.databinding.TutorialActivityHomeBinding
+import com.example.MoreCulture.databinding.TutorialActivityEventlistBinding
 import com.example.moreculture.MainActivity
 
+class TutorialEventlistActivity : AppCompatActivity() {
 
-class TutorialHomeActivity : AppCompatActivity() {
-
-
-
-
-    private var binding: TutorialActivityHomeBinding? = null
+    private var binding: TutorialActivityEventlistBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val prefs = getSharedPreferences("myPrefs", MODE_PRIVATE)
 
-
-        binding = TutorialActivityHomeBinding.inflate(layoutInflater)
+        binding = TutorialActivityEventlistBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         binding?.backButton?.setOnClickListener {
-            val intent = Intent(this, TutorialWelcomActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(this, TutorialHomeActivity::class.java)
+
         }
 
         binding?.nextButton?.setOnClickListener {
-            val intent = Intent(this, TutorialEventlistActivity::class.java)
+            val intent = Intent(this, TutorialWelcomActivity::class.java)
             startActivity(intent)
         }
         binding?.skipButton?.setOnClickListener {
@@ -40,5 +36,7 @@ class TutorialHomeActivity : AppCompatActivity() {
             finish()
         }
 
+
     }
+
 }

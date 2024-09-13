@@ -59,6 +59,9 @@
         <activity android:name="com.example.moreculture.tutorial.TutorialHomeActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.tutorial.TutorialEventlistActivity">
+
+        </activity>
 
 
 

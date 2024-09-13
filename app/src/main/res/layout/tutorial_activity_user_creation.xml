@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Mein Name ist:"
+                        android:text="@string/mein_name_ist"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/userNameInput"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Ich mag:"
+                        android:text="@string/ich_mag"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/view3"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +132,7 @@
                                 android:id="@+id/tag1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
@@ -141,14 +141,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Theater" />
+                                    android:text="@string/theater" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
@@ -157,14 +157,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Konzert" />
+                                    android:text="@string/konzert" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
@@ -173,14 +173,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Ausstellung" />
+                                    android:text="@string/ausstellung" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
@@ -189,14 +189,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Kunst" />
+                                    android:text="@string/kunst" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
@@ -205,7 +205,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Oper" />
+                                    android:text="@string/oper" />
                             </androidx.cardview.widget.CardView>
 
                         </TableRow>
@@ -219,7 +219,7 @@
                                 android:id="@+id/tag6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
 
@@ -227,14 +227,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Modern" />
+                                    android:text="@string/modern" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag7"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
 
@@ -242,14 +242,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Klassisch" />
+                                    android:text="@string/klassisch" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
 
@@ -257,14 +257,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="OpenAir" />
+                                    android:text="@string/openair" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag9"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
 
@@ -272,14 +272,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Kreativ" />
+                                    android:text="@string/kreativ" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/tag10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:clickable="true"
                                 app:cardBackgroundColor="@color/selectedTag">
 
@@ -288,7 +288,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="3dp"
-                                    android:text="Workshop" />
+                                    android:text="@string/workshop" />
                             </androidx.cardview.widget.CardView>
                         </TableRow>
 
@@ -306,7 +306,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:lineSpacingExtra="1sp"
-                android:text="Bevor du loslegen kannst, benötigen wir ein paar Daten von dir. Bitte wähle die Tags aus, die dich ansprechen, und gib deinen Namen in das Textfeld ein."
+                android:text="@string/befor_we_get_started"
                 android:textAlignment="viewStart"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@id/divider11"
@@ -364,7 +364,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Ich benötige:"
+                        android:text="@string/ich_ben_tige"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -485,7 +485,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="20dp"
-                android:text="Weiter"
+                android:text="@string/weiter"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -498,7 +498,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
-                android:text="Zurück"
+                android:text="@string/zur_ck"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

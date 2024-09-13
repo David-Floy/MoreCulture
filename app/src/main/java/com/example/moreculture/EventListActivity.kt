@@ -125,7 +125,6 @@ class EventListActivity : AppCompatActivity() {
 
         }
         binding?.buttonClose?.setOnClickListener {
-
             eventAdapter.ResetEventList()
             searchDb(3)
             checkVisibility()

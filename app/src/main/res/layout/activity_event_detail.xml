@@ -38,7 +38,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="1dp"
                 android:background="#00FFFFFF"
-                android:contentDescription="Burger Menu"
+                android:contentDescription="@string/burger_menu"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 android:src="@android:drawable/ic_menu_revert"
@@ -54,7 +54,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="16dp"
                 android:background="#00FFFFFF"
-                android:contentDescription="Burger Menu"
+                android:contentDescription="@string/burger_menu"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 android:src="@android:drawable/ic_menu_preferences"
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center_horizontal"
-                android:text="Event"
+                android:text="@string/event"
                 android:textColor="@android:color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -132,7 +132,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="jksdbkjbsd"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +144,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Ort"
+
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -311,7 +310,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Preis:"
+                        android:text="@string/preis"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -404,70 +403,70 @@
                             android:id="@+id/tag1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Theater" />
+                                android:text="@string/theater" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Konzert" />
+                                android:text="@string/konzert" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Ausstellung" />
+                                android:text="@string/ausstellung" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Kunst" />
+                                android:text="@string/kunst" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Oper" />
+                                android:text="@string/oper" />
                         </androidx.cardview.widget.CardView>
 
                     </TableRow>
@@ -481,63 +480,63 @@
                             android:id="@+id/tag6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Modern" />
+                                android:text="@string/modern" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Klassisch" />
+                                android:text="@string/klassisch" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="OpenAir" />
+                                android:text="@string/openair" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Kreativ" />
+                                android:text="@string/kreativ" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/tag10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             app:cardBackgroundColor="@color/selectedTag">
 
                             <TextView
@@ -545,7 +544,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Workshop" />
+                                android:text="@string/workshop" />
                         </androidx.cardview.widget.CardView>
                     </TableRow>
 

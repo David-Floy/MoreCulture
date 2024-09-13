@@ -37,7 +37,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:background="#00FFFFFF"
-                android:contentDescription="Burger Menu"
+                android:contentDescription="@string/burger_menu"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 android:src="@android:drawable/ic_menu_preferences"
@@ -51,7 +51,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="@android:color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +92,7 @@
                     android:layout_marginTop="30dp"
                     android:scaleX="1.3"
                     android:scaleY="1.3"
-                    android:text="Ich will mehr Kultur!"
+                    android:text="@string/ich_will_mehr_kultur"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -104,7 +104,7 @@
                     android:layout_marginTop="30dp"
                     android:scaleX="1.3"
                     android:scaleY="1.3"
-                    android:text="Map"
+                    android:text="@string/map"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button" />
@@ -134,7 +134,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:background="#00FFFFFF"
-                    android:contentDescription="List"
+                    android:contentDescription="@string/list"
                     app:cardCornerRadius="70dp"
                     app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
@@ -150,7 +150,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:background="@color/selectBottomIsland"
-                    android:contentDescription="Home Button"
+                    android:contentDescription="@string/home_button"
                     app:srcCompat="?android:attr/listChoiceIndicatorMultiple" />
 
                 <View
@@ -166,7 +166,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:background="#00FFFFFF"
-                    android:contentDescription="Account"
+                    android:contentDescription="@string/account"
                     app:srcCompat="@drawable/person" />
 
             </LinearLayout>

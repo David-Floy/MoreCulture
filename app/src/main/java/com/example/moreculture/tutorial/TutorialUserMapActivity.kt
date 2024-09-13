@@ -83,7 +83,7 @@ class TutorialUserMapActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 mainViewModel.updateUserRadius(userRadius)
                 withContext(Dispatchers.Main) {
-                    val intent = Intent(this@TutorialUserMapActivity, TutorialHomeActivity::class.java)
+                    val intent = Intent(this@TutorialUserMapActivity, TutorialWelcomActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
