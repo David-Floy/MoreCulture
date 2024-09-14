@@ -46,6 +46,9 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
     fun getPlaceById(placeId :Int) :Place{
         return placeDao.getPlaceById(placeId)
     }
+    fun getPlaceByName(placeName: String): Place{
+        return placeDao.getPlaceByName(placeName)
+    }
 
 
 

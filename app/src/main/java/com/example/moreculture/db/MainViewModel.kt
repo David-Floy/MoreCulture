@@ -37,6 +37,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         return repository.getPlaceById(placeId)
     }
 
+    fun getPlaceByName(placeName: String): Place{
+        return repository.getPlaceByName(placeName)
+    }
+
 
     //Events
     // Important search
@@ -85,7 +89,6 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
     suspend fun updateUser(user: UserAccount) {
             repository.updateUser(user)
-
 
     }
 

@@ -270,7 +270,11 @@ class MapViewActivity : AppCompatActivity() {
                         points: SimpleFastPointOverlay.PointAdapter?,
                         index: Int?
                     ) {
-                        val intent = Intent(this@MapViewActivity, EventDetailActivity::class.java)
+                        val intent = Intent(this@MapViewActivity, PlaceDetailActivity::class.java)
+
+                            //Log.d("PlaceName", (points?.get(index!!) as LabelledGeoPoint).getLabel())
+                            intent.putExtra("PLACE_NAME", (points?.get(index!!) as LabelledGeoPoint).getLabel())
+
                         startActivity(intent)
                         return
                     }

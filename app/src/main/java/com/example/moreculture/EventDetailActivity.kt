@@ -143,7 +143,7 @@ class EventDetailActivity  : AppCompatActivity() {
             GeoPoint(lat.toDouble(), lng.toDouble())
         }
     }
-    fun addMarker(center: GeoPoint?) {
+    private fun addMarker(center: GeoPoint?) {
         marker = Marker(map)
         marker.setPosition(center)
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)

@@ -32,5 +32,8 @@ interface PlaceDao {
     @Query("SELECT * FROM places WHERE id = :placeId")
     fun getPlaceById(placeId: Int): Place
 
+    @Query("SELECT * FROM places WHERE location_name = :placeName")
+    fun getPlaceByName(placeName: String): Place
+
 }
 
