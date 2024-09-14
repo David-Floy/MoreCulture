@@ -35,8 +35,7 @@ class EventDetailActivity  : AppCompatActivity() {
     private var selectedTagColor : Int = 0
 
     // Place attributes
-    var latitude : Double = 0.0
-    var longitude :Double = 0.0
+
     var geoPoint : GeoPoint = GeoPoint(52.5200, 13.4050)
     var center : GeoPoint = GeoPoint(52.5200, 13.4050)
     var map : MapView? = null

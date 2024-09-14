@@ -81,6 +81,9 @@ class PlaceDetailActivity : AppCompatActivity()  {
         binding?.backHomeButton?.setOnClickListener {
             finish()
         }
+        val userPositionString = intent.getStringExtra("USER_POSITION")
+        geoPoint = GeoPoint(userPositionString!!.split(",")[0].toDouble(), userPositionString.split(",")[1].toDouble())
+
         // MapView settings
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
         if (ContextCompat.checkSelfPermission(
@@ -96,7 +99,7 @@ class PlaceDetailActivity : AppCompatActivity()  {
             )
         } else {
             // Permission already granted, proceed with location setup
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            /*val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
@@ -104,7 +107,7 @@ class PlaceDetailActivity : AppCompatActivity()  {
                     0f,
                     locationListener
                 )
-            }
+            }*/
             setUpPageDetails()
         }
 
@@ -122,6 +125,7 @@ class PlaceDetailActivity : AppCompatActivity()  {
             Log.d("GPS", "this is my location $geoPoint")
 
             locationManager.removeUpdates(this)
+
             distance = GeoUtility().calculateDistance(geoPoint, toGeoPoint(place.geoPoint)!!)
             searchDb()
             binding?.placeDistanceDetail?.text = String.format(
@@ -149,6 +153,12 @@ class PlaceDetailActivity : AppCompatActivity()  {
 
                 binding?.locationNameText?.text = place.location_name
 
+                distance = GeoUtility().calculateDistance(geoPoint, toGeoPoint(place.geoPoint)!!)
+                searchDb()
+                binding?.placeDistanceDetail?.text = String.format(
+                    "%.0f km",
+                    distance
+                )
 
                 binding?.placeDescription?.text = place.location_description
                 binding?.placeUrl?.text = place.url

@@ -4,7 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,13 +19,17 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import com.example.MoreCulture.R
 import com.example.MoreCulture.databinding.ActivityMainBinding
+import com.example.moreculture.db.Event
 import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.PopulateDB
 import com.example.moreculture.tutorial.TutorialStartActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.osmdroid.util.GeoPoint
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
+    private var userGeoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,13 +75,6 @@ class MainActivity : AppCompatActivity() {
             // Wenn das Tutorial noch nicht angezeigt wurde, öffne es
             startActivity(Intent(this, TutorialStartActivity::class.java))
 
-            // Speichere, dass das Tutorial angezeigt wurde
-            /*val editor = prefs.edit()
-            editor.putBoolean("hasSeenTutorial", true)
-            editor.apply()
-            // Schließe die MainActivity, damit sie nicht gleichzeitig geöffnet wird
-
-             */
             finish()
 
         } else {
@@ -95,8 +97,28 @@ class MainActivity : AppCompatActivity() {
                     LOCATION_PERMISSION_REQUEST_CODE
                 )
             } else {
+                val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        0L,
+                        0f,
+                        locationListener
+                    )
+                }
                 setupUi()
             }
+        }
+    }
+    private val locationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val latitude = location.latitude
+            val longitude = location.longitude
+            userGeoPoint = GeoPoint(latitude, longitude)
+
+            // Optionally remove updates after receiving the first location
+            locationManager.removeUpdates(this)
         }
     }
 
@@ -129,12 +151,31 @@ class MainActivity : AppCompatActivity() {
         binding?.accountButton?.setOnClickListener {
             val intent = Intent(this, AccountEditActivity::class.java)
             startActivity(intent)
+        }
+        binding?.MapButton?.setOnClickListener {
+            val intent = Intent(this, MapOfPlacesActivity::class.java)
+            startActivity(intent)
+        }
 
-            // Add test Data
-            /*lifecycleScope.launch {
-            populateDatabaseWithTestData(mainViewModel)
+        binding?.IWantMoreCulture?.setOnClickListener {
+            val intent = Intent(this, EventDetailActivity::class.java)
+            var selectedEvents : Event
+            lifecycleScope.launch(Dispatchers.IO) {
+                selectedEvents = mainViewModel.getRandomEvent()!!
+                val place = mainViewModel.getPlaceById(selectedEvents.place_id)
+                withContext(Dispatchers.Main) {
 
-        }*/
+                    intent.putExtra(
+                        "EVENT_ID", selectedEvents.event_id
+                        )
+                    intent.putExtra("EVENT_DISTANCE", GeoUtility().calculateDistance(userGeoPoint, GeoPoint(place.latitude, place.longitude)))
+                    intent.putExtra("EVENT_PLACE", place.location_name)
+                    startActivity(intent)
+                }
+            }
+
+
+
         }
 
         // Toolbar

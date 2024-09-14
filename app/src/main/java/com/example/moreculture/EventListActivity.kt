@@ -144,7 +144,6 @@ class EventListActivity : AppCompatActivity() {
 
 
     private val locationListener = object : LocationListener {
-
         override fun onLocationChanged(location: Location) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val latitude = location.latitude

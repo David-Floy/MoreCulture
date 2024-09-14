@@ -65,6 +65,9 @@
         <activity android:name="com.example.moreculture.PlaceDetailActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.MapOfPlacesActivity">
+
+        </activity>
 
 
 

@@ -86,7 +86,7 @@
                     app:srcCompat="@drawable/test_picture" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/IWantMoreCulture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -98,7 +98,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/MapButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -107,7 +107,7 @@
                     android:text="@string/map"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button" />
+                    app:layout_constraintTop_toBottomOf="@+id/IWantMoreCulture" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -184,9 +184,7 @@
         android:layout_gravity="start"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        android:visibility="invisible"
-        app:menu="@menu/navigation_menu"
-        tools:visibility="invisible" />
+        app:menu="@menu/navigation_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

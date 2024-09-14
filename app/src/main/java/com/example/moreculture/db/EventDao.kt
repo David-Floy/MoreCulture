@@ -52,13 +52,15 @@ interface EventDao {
     suspend fun insertEventWithTags(event: Event, tagIds: List<Int>) {
         val eventId = insertEvent(event)
         val crossRefs = tagIds.map { tagId -> EventTagCrossRef(tagId, eventId.toInt()) }
-        Log.d("EventIds","Event inserted with ID: $eventId")
-        Log.d("TagIds","Tag inserted with ID: $tagIds")
-        tagIds.forEach { tagId ->  insertEventTagCrossRefs(crossRefs)
+        Log.d("EventIds", "Event inserted with ID: $eventId")
+        Log.d("TagIds", "Tag inserted with ID: $tagIds")
+        tagIds.forEach { tagId ->
+            insertEventTagCrossRefs(crossRefs)
         }
     }
 
-
+    @Query("SELECT * FROM events ORDER BY RANDOM() LIMIT 1")
+    fun getRandomEvent(): Event?
 
 
 }

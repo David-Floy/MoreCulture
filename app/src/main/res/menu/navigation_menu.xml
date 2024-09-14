@@ -2,14 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_option1"
-        android:title="Option 1"
-         />
+        android:title="Kultureinrichtung hinzufügen" />
     <item
         android:id="@+id/nav_option2"
-        android:title="Option 2"
-        />
+        android:title="Event hinzufügen" />
     <item
         android:id="@+id/nav_option3"
-        android:title="Option 3"
-         />
+        android:title="Technische Infromationen" />
+    <item android:title="Warum Kotlin" />
 </menu>

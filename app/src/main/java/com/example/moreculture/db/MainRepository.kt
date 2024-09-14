@@ -69,6 +69,9 @@ class MainRepository (private val database: AppDatabase, private val placeDao: P
 
         }*/
     }
+    fun getRandomEvent(): Event? {
+        return eventDao.getRandomEvent()
+    }
 
     suspend fun insertTags(tags: List<Tag>): List<Long> {
         return eventDao.insertTags(tags)
