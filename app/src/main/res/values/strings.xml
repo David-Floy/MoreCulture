@@ -51,6 +51,22 @@
     <string name="der_linke_button_bringt_dich_zu_deinem_event_feed">Der linke Button bringt dich zu deinem Event-Feed.</string>
     <string name="der_mittlere_button_f_hrt_dich_zur_startseite_zur_ck">Der mittlere Button führt dich zur Startseite zurück.</string>
     <string name="der_rechte_button_ffnet_dein_benutzerkonto">Der rechte Button öffnet dein Benutzerkonto.</string>
+    <string name="klicke_auf_das_demobild_um_ein_eigens_hochzuladen">Klicke auf das Demobild um ein eigens hochzuladen</string>
+    <string name="name_der_veranstaltung">Name der Veranstaltung</string>
+    <string name="ort_an_dem_das_event_stattfindet">Ort an dem das Event stattfindet:</string>
+    <string name="uhrzeit">Uhrzeit:</string>
+    <string name="datum_der_veranstaltung">Datum der Veranstaltung</string>
+    <string name="beschreibung_der_veranstaltung">Beschreibung der Veranstaltung</string>
+    <string name="add_location">Add Location</string>
+    <string name="name_der_kultureinrichtung">Name der Kultureinrichtung</string>
+    <string name="beschreibung_f_r_die_kultureinrichtung">Beschreibung für die Kultureinrichtung</string>
+    <string name="webseite_der_kultureinrichtung">Webseite der Kultureinrichtung</string>
+    <string name="url">url</string>
+    <string name="cordinaten">Cordinaten</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude</string>
+    <string name="auf_der_karte_ausw_hlen">Auf der Karte Auswählen</string>
+    <string name="halte_den_marker_gedr_ckt_und_verschiebe_ihn_dahin_wo_sich_die_kultureinrichtung_befindet_und_best_tige_oben_rechts_die_position">Halte den Marker gedrückt und verschiebe ihn dahin, wo sich die Kultureinrichtung befindet, und bestätige oben rechts die Position.</string>
 
 
 </resources>

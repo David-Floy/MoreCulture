@@ -29,7 +29,7 @@ class MainApplication : Application() {
 
         // Configuration for MapView needed to access the map tile Server
         Configuration.getInstance().userAgentValue =
-            "MentalBreakdownHappyPlaces/0.8 (Android; floy.tv.com@gmail.com)"
+            "MoreCulture/0.9 (Android; floy.tv.com@gmail.com)"
 
         // Initialize the database and repository
 

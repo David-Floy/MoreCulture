@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE">
+
+    </uses-permission>
 
     <application
         android:name="com.example.moreculture.db.MainApplication"
@@ -66,6 +69,21 @@
 
         </activity>
         <activity android:name="com.example.moreculture.MapOfPlacesActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.MenuAddPlaceActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.MenuMapViewActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.MenuAddEventMapActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.MenuAddEventActivity">
+
+        </activity>
+        <activity android:name="com.example.moreculture.MenuTechnikActivity">
 
         </activity>
 

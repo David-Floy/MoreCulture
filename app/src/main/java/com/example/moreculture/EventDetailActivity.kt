@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.room.TypeConverter
 import com.example.MoreCulture.databinding.ActivityEventDetailBinding
@@ -84,6 +85,7 @@ class EventDetailActivity  : AppCompatActivity() {
                 binding?.eventTime?.text = event.event_time
                 binding?.eventDescription?.text = event.event_description
                 binding?.eventPrice?.text = event.event_price.toString()
+                binding?.imageView?.setImageURI(event.image_url?.toUri())
 
                 updateTagBackgrounds(eventTags)
 

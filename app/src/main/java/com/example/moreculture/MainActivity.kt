@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import com.example.MoreCulture.R
@@ -131,11 +132,7 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
 
         // Buttons
-        val burgerButton = binding?.burgerMenuButton
-        burgerButton?.setOnClickListener {
-            //drawerLayout?.openDrawer(GravityCompat.START)
 
-        }
 
         // BottomIsland Buttons
         binding?.homeButton?.setOnClickListener {
@@ -185,22 +182,30 @@ class MainActivity : AppCompatActivity() {
         navView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_option1 -> {
-                    // Handle option 1 click
+                    val intent = Intent(this, MenuAddPlaceActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 R.id.nav_option2 -> {
-                    // Handle option 2 click
+                    val intent = Intent(this, MenuAddEventMapActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 R.id.nav_option3 -> {
-                    // Handle option 3 click
+                    val intent = Intent(this, MenuTechnikActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 else -> false
             }
+        }
+        val burgerButton = binding?.burgerMenuButton
+        burgerButton?.setOnClickListener {
+            drawerLayout?.openDrawer(GravityCompat.START)
+
         }
     }
 
