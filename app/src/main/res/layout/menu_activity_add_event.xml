@@ -96,22 +96,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="81dp"
-                android:text="@string/klicke_auf_das_demobild_um_ein_eigens_hochzuladen"
+                android:text="Cover Bild URL (Leer = Demobild):"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageUploadView"
-                android:layout_width="400dp"
-                android:layout_height="250dp"
+            <EditText
+                android:id="@+id/imageUrl"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27"
-                app:srcCompat="@drawable/test_picture"
-                tools:srcCompat="@drawable/test_picture" />
+                app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
             <View
                 android:id="@+id/divider"
@@ -121,7 +118,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageUploadView" />
+                app:layout_constraintTop_toBottomOf="@+id/imageUrl" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

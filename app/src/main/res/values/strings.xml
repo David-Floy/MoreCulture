@@ -67,6 +67,10 @@
     <string name="longitude">Longitude</string>
     <string name="auf_der_karte_ausw_hlen">Auf der Karte Auswählen</string>
     <string name="halte_den_marker_gedr_ckt_und_verschiebe_ihn_dahin_wo_sich_die_kultureinrichtung_befindet_und_best_tige_oben_rechts_die_position">Halte den Marker gedrückt und verschiebe ihn dahin, wo sich die Kultureinrichtung befindet, und bestätige oben rechts die Position.</string>
+    <string name="warum_kotlin">Warum Kotlin</string>
+    <string name="technische_infromationen">Technische Infromationen</string>
+    <string name="event_hinzuf_gen">Event hinzufügen</string>
+    <string name="kultureinrichtung_hinzuf_gen">Kultureinrichtung hinzufügen</string>
 
 
 </resources>

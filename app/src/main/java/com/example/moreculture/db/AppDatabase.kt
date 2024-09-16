@@ -8,20 +8,17 @@ import androidx.room.TypeConverters
 
 import com.example.moreculture.GeoPointConverter
 
-
+// Imports DAO classes
 @Database(
     entities = [Place::class, Event::class, Tag::class, EventTagCrossRef::class, UserAccount::class, UserTagCrossRef::class],
     version = 5
 )
+
 @TypeConverters(GeoPointConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun PlaceDao(): PlaceDao
     abstract fun eventDao(): EventDao
     abstract fun userDao(): UserDao
-
-
-
-    // Migration definition (usually in the same file)
 
 
     companion object {

@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.MoreCulture.databinding.ActivityMapOfPlacesBinding
 import com.example.MoreCulture.databinding.MenuActivityAddEventMapBinding
 import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
@@ -35,11 +34,13 @@ class MenuAddEventMapActivity : AppCompatActivity() {
 
     private var binding: MenuActivityAddEventMapBinding? = null
 
+    // View Model
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
 
-    public var center: GeoPoint = GeoPoint(52.5200, 13.4050)
+
+    var center: GeoPoint = GeoPoint(52.5200, 13.4050)
     var map: MapView? = null
     private lateinit var marker: Marker
 
@@ -55,14 +56,14 @@ class MenuAddEventMapActivity : AppCompatActivity() {
 
     }
 
+    //Top Island Buttons
     private fun setupBindings() {
-
-        //Top Island Buttons
         binding?.mapBackHomeButton?.setOnClickListener {
             finish()
         }
     }
 
+    // MapView Settings
     private fun mapSettings(): IMapController {
         // MapView settings
         map = binding?.mapViewControl
@@ -72,11 +73,12 @@ class MenuAddEventMapActivity : AppCompatActivity() {
         return map?.controller!!
     }
 
+    // MapView on Create
     private fun mapOnCreate() {
-        // Get the map again
         val mapController = mapSettings()
         val mGpsMyLocationProvider = GpsMyLocationProvider(this)
         val mLocationProvider = MyLocationNewOverlay(mGpsMyLocationProvider, map)
+        // Enable my location
         mLocationProvider.enableMyLocation()
         mLocationProvider.enableFollowLocation()
         map?.overlays?.add(mLocationProvider)
@@ -90,8 +92,6 @@ class MenuAddEventMapActivity : AppCompatActivity() {
                 mapController.animateTo(mLocationProvider.myLocation)
                 center = GeoPoint(mLocationProvider.myLocation)
 
-
-
                 addMarker(center)
 
                 // Add all locations as points to the map
@@ -99,23 +99,25 @@ class MenuAddEventMapActivity : AppCompatActivity() {
 
                 // Set the initial zoom level
                 mapController.setZoom(11)
-                // Or your desired zoom level
+
+                // Disable my location
                 mLocationProvider.disableMyLocation()
             }
 
         }
-
-
-
     }
 
+    // Add all locations as points to the map
     private fun addAllLocationsToMap() {
         var places: List<Place> = emptyList()
         var points: List<IGeoPoint> = mutableListOf()
+
         lifecycleScope.launch(Dispatchers.IO) {
+            // get all places from database
             places = mainViewModel.getPlaces().first()
 
             withContext(Dispatchers.Main) {
+                // add all places to the map
                 places.forEach { place ->
                     points += (
                             LabelledGeoPoint(
@@ -142,6 +144,7 @@ class MenuAddEventMapActivity : AppCompatActivity() {
 
                 val sfpo = SimpleFastPointOverlay(pt, opt)
 
+                // set onclick listener for points on the map
                 sfpo.setOnClickListener(object : SimpleFastPointOverlay.OnClickListener {
                     override fun onClick(
                         points: SimpleFastPointOverlay.PointAdapter?,
@@ -154,7 +157,6 @@ class MenuAddEventMapActivity : AppCompatActivity() {
                         return
                     }
                 })
-
 
                 map?.overlays?.add(sfpo)
             }

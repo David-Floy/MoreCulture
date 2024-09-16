@@ -6,15 +6,18 @@ import androidx.core.content.ContextCompat
 import com.example.MoreCulture.R
 import com.example.MoreCulture.databinding.ActivityAccountEditBinding
 import com.example.moreculture.db.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class TagUiUtility(private  var binding : ActivityAccountEditBinding?, private var context: Context, private val mainViewModel: MainViewModel) {
 
-    fun updateTagBackgrounds(selectedTags: MutableList<Int>){
+class TagUiUtility(
+    private var binding: ActivityAccountEditBinding?,
+    private var context: Context,
+    private val mainViewModel: MainViewModel
+) {
 
-        val deselectedTagColor  = ContextCompat.getColor(context, R.color.deselectedTag)
+    // Update tag backgrounds based on selected tags
+    fun updateTagBackgrounds(selectedTags: MutableList<Int>) {
+
+        val deselectedTagColor = ContextCompat.getColor(context, R.color.deselectedTag)
         val selectedTagColor = ContextCompat.getColor(context, R.color.selectedTag)
 
 

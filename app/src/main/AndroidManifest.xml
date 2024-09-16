@@ -86,6 +86,9 @@
         <activity android:name="com.example.moreculture.MenuTechnikActivity">
 
         </activity>
+        <activity android:name="com.example.moreculture.MenuKotlinJavaActivity">
+
+        </activity>
 
 
 

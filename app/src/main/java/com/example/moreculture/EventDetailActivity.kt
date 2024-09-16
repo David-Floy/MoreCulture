@@ -1,12 +1,12 @@
 package com.example.moreculture
 
-import android.R
+
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.room.TypeConverter
 import com.example.MoreCulture.databinding.ActivityEventDetailBinding
@@ -23,60 +23,68 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import java.net.HttpURLConnection
+import java.net.URL
 
+class EventDetailActivity : AppCompatActivity() {
 
-class EventDetailActivity  : AppCompatActivity() {
+    private var binding: ActivityEventDetailBinding? = null
 
-
-    private  var binding: ActivityEventDetailBinding? = null
-    lateinit var event : Event
+    // Event attributes
+    lateinit var event: Event
     private lateinit var eventTags: MutableList<Int>
 
-    private var deselectedTagColor : Int = 0
-    private var selectedTagColor : Int = 0
+    // Tag colors
+    private var deselectedTagColor: Int = 0
+    private var selectedTagColor: Int = 0
 
     // Place attributes
+    var geoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
+    var center: GeoPoint = GeoPoint(52.5200, 13.4050)
+    var map: MapView? = null
 
-    var geoPoint : GeoPoint = GeoPoint(52.5200, 13.4050)
-    var center : GeoPoint = GeoPoint(52.5200, 13.4050)
-    var map : MapView? = null
+    lateinit var marker: Marker
 
-    lateinit var marker : Marker
-
-    private val mainViewModel : MainViewModel by viewModels {
+    // View Model
+    private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        deselectedTagColor = ContextCompat.getColor(this, com.example.MoreCulture.R.color.deselectedTag)
+        // Initialize colors
+        deselectedTagColor =
+            ContextCompat.getColor(this, com.example.MoreCulture.R.color.deselectedTag)
         selectedTagColor = ContextCompat.getColor(this, com.example.MoreCulture.R.color.selectedTag)
 
+        // Set up page details
         setUpPageDetails()
 
+        // Set up back button click listener
         binding?.backHomeButton?.setOnClickListener {
-                finish()
+            finish()
         }
         // MapView settings
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
-
-
-
-
-
     }
 
-    private fun setUpPageDetails(){
+    // Fetch event, place and selected tags
+    private fun setUpPageDetails() {
+
+        // Get event ID from intent
         val eventId = intent.getIntExtra("EVENT_ID", 0)
+
+        // Fetch event, place and selected tags
         lifecycleScope.launch(Dispatchers.IO) {
             event = mainViewModel.getEventById(eventId)
             val place = mainViewModel.getPlaceById(event.place_id)
             eventTags = mainViewModel.getTagIdsForEvent(eventId).toMutableList()
 
-
+            // Update UI with event details
             withContext(Dispatchers.Main) {
                 binding?.eventNameText?.text = event.event_name
                 binding?.eventDistanceDetail?.text = intent.getStringExtra("EVENT_DISTANCE")
@@ -85,8 +93,31 @@ class EventDetailActivity  : AppCompatActivity() {
                 binding?.eventTime?.text = event.event_time
                 binding?.eventDescription?.text = event.event_description
                 binding?.eventPrice?.text = event.event_price.toString()
-                binding?.imageView?.setImageURI(event.image_url?.toUri())
 
+                // WebView settings
+                val viewSettings = binding?.ImageWebVIew?.settings
+                viewSettings?.loadWithOverviewMode = true
+                viewSettings?.useWideViewPort = true
+
+                // Set image url
+                if (event.image_url == "") {
+                    binding?.ImageWebVIew?.loadUrl("https://img.zeit.de/kultur/2021-06/theater-pandemie-zuschauer-kultur-oeffnung-teaser/wide__1300x731")
+                } else {
+                    binding?.ImageWebVIew?.loadUrl(event.image_url!!)
+                    // Check if image is available
+                    Thread {
+                        val isAvailable = isUrlAvailable(event.image_url!!) // No need for !! here
+                        runOnUiThread {
+                            if (isAvailable) {
+                                binding?.ImageWebVIew?.loadUrl(event.image_url!!)
+                            } else {
+                                binding?.ImageWebVIew?.loadUrl("https://img.zeit.de/kultur/2021-06/theater-pandemie-zuschauer-kultur-oeffnung-teaser/wide__1300x731")
+                            }
+                        }
+                    }.start()
+                }
+
+                // Update Tag background
                 updateTagBackgrounds(eventTags)
 
                 // MapView settings
@@ -103,6 +134,8 @@ class EventDetailActivity  : AppCompatActivity() {
             }
         }
     }
+
+    // Update Tag background
     private fun updateTagBackgrounds(selectedTags: List<Int>) {
         val tagIds = selectedTags// Get a list of selected tag IDs
 
@@ -144,6 +177,7 @@ class EventDetailActivity  : AppCompatActivity() {
             GeoPoint(lat.toDouble(), lng.toDouble())
         }
     }
+
     private fun addMarker(center: GeoPoint?) {
         marker = Marker(map)
         marker.setPosition(center)
@@ -152,5 +186,29 @@ class EventDetailActivity  : AppCompatActivity() {
         map?.overlays?.clear()
         map?.overlays?.add(marker)
         map?.invalidate()
+    }
+
+    private fun isUrlAvailable(url: String): Boolean {
+        return try {
+            Log.d("url Test", url)
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "HEAD"
+            connection.connectTimeout = 3000
+            connection.useCaches = false // Disable caching
+            connection.instanceFollowRedirects = true // Follow redirects
+
+            val responseCode = connection.responseCode
+            val isAvailable = responseCode == HttpURLConnection.HTTP_OK ||
+                    responseCode == HttpURLConnection.HTTP_MOVED_PERM ||
+                    responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+            Log.d(
+                "URL Availability",
+                "URL: $url, Available: $isAvailable, Response Code: $responseCode"
+            )
+            isAvailable
+        } catch (e: Exception) {
+            Log.d("URL Availability", "URL: $url, Error: ${e::class.simpleName}: ${e.message}")
+            false
+        }
     }
 }

@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
-
+// Event Entity
 @Entity(
     tableName = "events", indices = [Index(value = ["event_name"], unique = true)],
     foreignKeys = [ForeignKey(

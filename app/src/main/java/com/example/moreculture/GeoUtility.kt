@@ -1,12 +1,11 @@
 package com.example.moreculture
 
-import androidx.room.TypeConverter
 import org.osmdroid.util.GeoPoint
 import kotlin.math.sqrt
 
 class GeoUtility {
 
-
+    // Calculate distance between two GeoPoints
     fun calculateDistance(point1: GeoPoint, point2: GeoPoint): Double {
         val lat1 = point1.latitude
         val lon1 = point1.longitude

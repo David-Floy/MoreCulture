@@ -2,7 +2,6 @@ package com.example.moreculture
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.MoreCulture.databinding.MenuActivityMapViewBinding
 import com.example.MoreCulture.databinding.MenuActivtiyTechnikBinding
 
 class MenuTechnikActivity : AppCompatActivity() {

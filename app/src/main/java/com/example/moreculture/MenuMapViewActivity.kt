@@ -10,11 +10,9 @@ import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import org.osmdroid.api.IMapController
-import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
@@ -23,15 +21,12 @@ class MenuMapViewActivity : AppCompatActivity() {
 
     private var binding: MenuActivityMapViewBinding? = null
 
-    private val mainViewModel: MainViewModel by viewModels {
-        MainViewModelFactory((application as MainApplication).repository)
-    }
-    private lateinit var newLatitude : String
-    private lateinit var newLongitude :String
-
-    private lateinit var placeName :String
-    private lateinit var placeDescription :String
-    private lateinit var placeUrl :String
+    // Place Details
+    private lateinit var newLatitude: String
+    private lateinit var newLongitude: String
+    private lateinit var placeName: String
+    private lateinit var placeDescription: String
+    private lateinit var placeUrl: String
 
     var geoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
 
@@ -45,33 +40,32 @@ class MenuMapViewActivity : AppCompatActivity() {
         binding = MenuActivityMapViewBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-
+        // Get place details from intent
         newLatitude = intent.getStringExtra("PLACE_LATITUDE").toString()
         newLongitude = intent.getStringExtra("PLACE_LONGITUDE").toString()
-
         placeName = intent.getStringExtra("PLACE_NAME").toString()
         placeDescription = intent.getStringExtra("PLACE_DESCRIPTION").toString()
         placeUrl = intent.getStringExtra("PLACE_URL").toString()
 
-        if (newLatitude != "" || newLongitude != ""){
+        // check if place details are empty
+        if (newLatitude != "" || newLongitude != "") {
             geoPoint = GeoPoint(newLongitude?.toDouble()!!, newLatitude?.toDouble()!!)
         }
-        binding?.mapConfrim?.setOnClickListener{
+        binding?.mapConfrim?.setOnClickListener {
+            // Start MenuAddPlaceActivity with place details
             val intent = Intent(this, MenuAddPlaceActivity::class.java)
-            intent.putExtra("PLACE_LATITUDE", marker.position.latitude.toString() )
-            intent.putExtra("PLACE_LONGITUDE", marker.position.longitude.toString() )
-            intent.putExtra("PLACE_NAME", placeName )
-            intent.putExtra("PLACE_DESCRIPTION", placeDescription )
-            intent.putExtra("PLACE_URL",placeUrl )
-
+            intent.putExtra("PLACE_LATITUDE", marker.position.latitude.toString())
+            intent.putExtra("PLACE_LONGITUDE", marker.position.longitude.toString())
+            intent.putExtra("PLACE_NAME", placeName)
+            intent.putExtra("PLACE_DESCRIPTION", placeDescription)
+            intent.putExtra("PLACE_URL", placeUrl)
             startActivity(intent)
         }
-
-
         mapOnCreate()
     }
 
 
+    // MapView Settings
     private fun mapSettings(): IMapController {
         // MapView settings
         map = binding?.mapViewControl
@@ -82,6 +76,7 @@ class MenuMapViewActivity : AppCompatActivity() {
         return map?.controller!!
     }
 
+    // MapView on Create
     private fun mapOnCreate() {
         // Get the map again
         val mapController = mapSettings()
@@ -96,32 +91,23 @@ class MenuMapViewActivity : AppCompatActivity() {
         mLocationProvider.runOnFirstFix {
             runOnUiThread {
                 map?.overlays?.clear()
-                //map?.overlays?.add(mLocationProvider)
 
-
-
-
-                if (newLatitude == "" || newLongitude == ""){
+                // Set the initial location
+                if (newLatitude == "" || newLongitude == "") {
                     geoPoint = mLocationProvider.myLocation
                     mapController.animateTo(mLocationProvider.myLocation)
-                }else{
-                    geoPoint = GeoPoint(newLatitude.toDouble(),newLongitude.toDouble() )
+                } else {
+                    geoPoint = GeoPoint(newLatitude.toDouble(), newLongitude.toDouble())
                     mapController.animateTo(geoPoint)
                 }
 
                 addMarker(geoPoint)
-
-
                 // Set the initial zoom level
                 mapController.setZoom(18)
-                // Or your desired zoom level
-
                 mLocationProvider.disableMyLocation()
             }
 
         }
-
-
 
 
     }

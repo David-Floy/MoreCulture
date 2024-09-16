@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
-
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -35,11 +34,15 @@ class MapOfPlacesActivity : AppCompatActivity() {
 
     private var binding: ActivityMapOfPlacesBinding? = null
 
+    // View Model
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
 
-    public var center: GeoPoint = GeoPoint(52.5200, 13.4050)
+    // User GeoPoint
+    var center: GeoPoint = GeoPoint(52.5200, 13.4050)
+
+    // MapView
     var map: MapView? = null
     private lateinit var marker: Marker
 
@@ -55,14 +58,15 @@ class MapOfPlacesActivity : AppCompatActivity() {
 
     }
 
+    // Bindings
     private fun setupBindings() {
-
         //Top Island Buttons
         binding?.mapBackHomeButton?.setOnClickListener {
             finish()
         }
     }
 
+    // MapView Settings
     private fun mapSettings(): IMapController {
         // MapView settings
         map = binding?.mapViewControl
@@ -72,8 +76,8 @@ class MapOfPlacesActivity : AppCompatActivity() {
         return map?.controller!!
     }
 
+    // MapView on Create
     private fun mapOnCreate() {
-        // Get the map again
         val mapController = mapSettings()
         val mGpsMyLocationProvider = GpsMyLocationProvider(this)
         val mLocationProvider = MyLocationNewOverlay(mGpsMyLocationProvider, map)
@@ -81,41 +85,35 @@ class MapOfPlacesActivity : AppCompatActivity() {
         mLocationProvider.enableFollowLocation()
         map?.overlays?.add(mLocationProvider)
 
-
         // Run on first fix
         mLocationProvider.runOnFirstFix {
             runOnUiThread {
                 map?.overlays?.clear()
-                //map?.overlays?.add(mLocationProvider)
                 mapController.animateTo(mLocationProvider.myLocation)
                 center = GeoPoint(mLocationProvider.myLocation)
-
-
-
                 addMarker(center)
-
                 // Add all locations as points to the map
                 addAllLocationsToMap()
-
-                // Set the initial zoom level
                 mapController.setZoom(11)
-                // Or your desired zoom level
+
+                // Disable my location
                 mLocationProvider.disableMyLocation()
             }
-
         }
-
-
-
     }
 
+    // Add all locations as points to the map
     private fun addAllLocationsToMap() {
         var places: List<Place> = emptyList()
         var points: List<IGeoPoint> = mutableListOf()
+
         lifecycleScope.launch(Dispatchers.IO) {
+
+            // Get all places from the database
             places = mainViewModel.getPlaces().first()
 
             withContext(Dispatchers.Main) {
+                // Add all places as points to the map
                 places.forEach { place ->
                     points += (
                             LabelledGeoPoint(
@@ -125,7 +123,6 @@ class MapOfPlacesActivity : AppCompatActivity() {
                             )
                             )
                 }
-
                 val pt = SimplePointTheme(points, true)
 
                 // create label style
@@ -135,6 +132,7 @@ class MapOfPlacesActivity : AppCompatActivity() {
                 textStyle.textAlign = Paint.Align.CENTER
                 textStyle.textSize = 40F
 
+                // create point style
                 val opt = SimpleFastPointOverlayOptions.getDefaultStyle()
                     .setAlgorithm(SimpleFastPointOverlayOptions.RenderingAlgorithm.MEDIUM_OPTIMIZATION)
                     .setRadius(20F).setIsClickable(true).setCellSize(15)
@@ -142,22 +140,23 @@ class MapOfPlacesActivity : AppCompatActivity() {
 
                 val sfpo = SimpleFastPointOverlay(pt, opt)
 
+                // Set click listener for points on map
                 sfpo.setOnClickListener(object : SimpleFastPointOverlay.OnClickListener {
                     override fun onClick(
                         points: SimpleFastPointOverlay.PointAdapter?,
                         index: Int?
                     ) {
-                        val intent = Intent(this@MapOfPlacesActivity, PlaceDetailActivity::class.java)
-
-                        //Log.d("PlaceName", (points?.get(index!!) as LabelledGeoPoint).getLabel())
-                        intent.putExtra("PLACE_NAME", (points?.get(index!!) as LabelledGeoPoint).getLabel())
+                        val intent =
+                            Intent(this@MapOfPlacesActivity, PlaceDetailActivity::class.java)
+                        intent.putExtra(
+                            "PLACE_NAME",
+                            (points?.get(index!!) as LabelledGeoPoint).getLabel()
+                        )
                         intent.putExtra("USER_POSITION", center.toString())
                         startActivity(intent)
                         return
                     }
                 })
-
-
                 map?.overlays?.add(sfpo)
             }
         }

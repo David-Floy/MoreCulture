@@ -8,7 +8,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -27,7 +26,6 @@ import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.PopulateDB
 import com.example.moreculture.tutorial.TutorialStartActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.osmdroid.util.GeoPoint
@@ -40,52 +38,57 @@ class MainActivity : AppCompatActivity() {
     // Location permission request code
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
-    private val mainViewModel : MainViewModel by viewModels {
+    // View Model
+    private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
+
+    // User GeoPoint
     private var userGeoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Check if the database is already populated
         val sharedPrefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val isDatabasePopulated = sharedPrefs.getBoolean("database_populated", false)
 
+        // If the database is not populated, populate it
         if (!isDatabasePopulated) {
             lifecycleScope.launch(Dispatchers.IO) {
                 val populateDb = PopulateDB(applicationContext) // Pass applicationContext
                 populateDb.populateDB(mainViewModel)
             }
             // Set the flag to true
-                with(sharedPrefs.edit()) {
-                    putBoolean("database_populated", true)
-                    apply()
-                }
+            with(sharedPrefs.edit()) {
+                putBoolean("database_populated", true)
+                apply()
+            }
             checkTutorialAndGpsAccess()
-        }else {
+        } else {
             checkTutorialAndGpsAccess()
         }
     }
-    private fun checkTutorialAndGpsAccess(){
 
-        // Überprüfen, ob das Tutorial schon angezeigt wurde
+    // Check if the tutorial has been shown and request GPS access
+    private fun checkTutorialAndGpsAccess() {
+
+        // Check if the tutorial has been shown
         val prefs = getSharedPreferences("myPrefs", MODE_PRIVATE)
         val hasSeenTutorial = prefs.getBoolean("hasSeenTutorial", false)
 
         if (!hasSeenTutorial) {
-            // Wenn das Tutorial noch nicht angezeigt wurde, öffne es
+            // Show the tutorial if it hasn't been shown yet
             startActivity(Intent(this, TutorialStartActivity::class.java))
-
             finish()
 
         } else {
-            // Wenn das Tutorial schon angezeigt wurde, öffne die Hauptanwendung
+            // Tutorial has been shown, proceed with GPS access
             // View Binding
             binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding?.root)
 
-
-
+            // Check for location permission
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -98,6 +101,8 @@ class MainActivity : AppCompatActivity() {
                     LOCATION_PERMISSION_REQUEST_CODE
                 )
             } else {
+                // Permission already granted
+                // Get the last known location
                 val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     locationManager.requestLocationUpdates(
@@ -111,6 +116,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    // Location Listener
     private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -123,15 +130,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // UI Setup
     private fun setupUi() {
+
         // Navigation Drawer Setup
         val navView = binding?.navView // Ersetze mit deiner NavigationView ID
         val drawerLayout: DrawerLayout? = binding?.drawerLayout
-        val actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
+        val actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout?.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
-
-        // Buttons
 
 
         // BottomIsland Buttons
@@ -139,62 +147,74 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TutorialStartActivity::class.java)
             startActivity(intent)
         }
-
+        // BottomIsland Buttons
         binding?.eventListButton?.setOnClickListener {
             val intent = Intent(this, EventListActivity::class.java)
             startActivity(intent)
         }
-
+        // BottomIsland Buttons
         binding?.accountButton?.setOnClickListener {
             val intent = Intent(this, AccountEditActivity::class.java)
             startActivity(intent)
         }
+
+        // Map of all places Button
         binding?.MapButton?.setOnClickListener {
             val intent = Intent(this, MapOfPlacesActivity::class.java)
             startActivity(intent)
         }
 
+        // Random Event Button
         binding?.IWantMoreCulture?.setOnClickListener {
             val intent = Intent(this, EventDetailActivity::class.java)
-            var selectedEvents : Event
+            var selectedEvents: Event
             lifecycleScope.launch(Dispatchers.IO) {
                 selectedEvents = mainViewModel.getRandomEvent()!!
                 val place = mainViewModel.getPlaceById(selectedEvents.place_id)
                 withContext(Dispatchers.Main) {
-
                     intent.putExtra(
                         "EVENT_ID", selectedEvents.event_id
+                    )
+                    intent.putExtra(
+                        "EVENT_DISTANCE",
+                        GeoUtility().calculateDistance(
+                            userGeoPoint,
+                            GeoPoint(place.latitude, place.longitude)
                         )
-                    intent.putExtra("EVENT_DISTANCE", GeoUtility().calculateDistance(userGeoPoint, GeoPoint(place.latitude, place.longitude)))
+                    )
                     intent.putExtra("EVENT_PLACE", place.location_name)
                     startActivity(intent)
                 }
             }
-
-
-
         }
 
         // Toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Navigation Drawer for Admin login and information
+        // Navigation Drawer for Admin stuff and information
         navView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                // Add place
                 R.id.nav_option1 -> {
                     val intent = Intent(this, MenuAddPlaceActivity::class.java)
                     startActivity(intent)
                     true
                 }
-
+                // Add event
                 R.id.nav_option2 -> {
                     val intent = Intent(this, MenuAddEventMapActivity::class.java)
                     startActivity(intent)
                     true
                 }
-
+                // Technical Info
                 R.id.nav_option3 -> {
                     val intent = Intent(this, MenuTechnikActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                // Java Kotlin Activity
+                R.id.nav_option4 -> {
+                    val intent = Intent(this, MenuKotlinJavaActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -202,14 +222,19 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // Burger Menu
         val burgerButton = binding?.burgerMenuButton
         burgerButton?.setOnClickListener {
             drawerLayout?.openDrawer(GravityCompat.START)
-
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    // Handle permission request result
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -217,7 +242,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // Permission denied setup Ui anywa
                 setupUi()
-                Toast.makeText(applicationContext, "Die App benötigt GPS-Berechtigung", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Die App benötigt GPS-Berechtigung",
+                    Toast.LENGTH_LONG
+                ).show()
 
             }
         }
@@ -227,63 +256,4 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         binding = null
     }
-
-
-   // Test data
-
-    /*fun createTestPlaces(): List<Place> {
-        return listOf(
-            Place(0, "Cool Hofen", "Green park with playground", 52.520652, 13.406026, "geopoint_data_1", "www.example.com/park"),
-            Place(0, "Schönhausen", "Art and history museum", 48.234, 11.567, "geopoint_data_2", "www.example.com/museum"),
-            Place(0, "TheaterHamburg", "Venue for concerts and events", 48.345, 11.678, "geopoint_data_3", "www.example.com/concert_hall")
-        )
-    }
-
-
-
-    fun createTestEvents(): List<Event> {
-        return listOf(
-            Event(1, 1, "Winter spaß", "Outdoor music festival", "image_url_1", "2024-06-15", "20:00", 100.00),
-            Event(2, 2, "Ich bin cool haus", "Modern art exhibition", "image_url_2", "2024-07-01", "19:30", 50.00),
-            Event(3, 3, "Raus mit dem Regen", "Live music concert", "image_url_3", "2024-08-10", "21:00", 75.00)
-        )
-    }
-
-    fun createTestUser() : UserAccount{
-        return UserAccount(0,"David",0.252)
-    }
-
-
-    private fun createTestTags(): List<Tag> {
-        return listOf(
-            Tag(1, "Music"),
-            Tag(2, "Festival"),
-            Tag(3, "Art"),
-            Tag(4, "Exhibition"),
-            Tag(5, "Concert")
-        )
-    }
-
-
-     suspend fun populateDatabaseWithTestData(mainViewModel: MainViewModel) {
-        val places = createTestPlaces()
-        val events = createTestEvents()
-        val tags = createTestTags()
-        val user = createTestUser()
-         mainViewModel.insertTags(tags)
-
-         places.forEach { place -> val geoPoint = GeoPoint(place.latitude, place.longitude)
-             mainViewModel.insertPlace(place, geoPoint)
-         }
-         events.forEach { event ->
-             val eventTagIds = eventTags[event.event_id] ?: emptyList()
-             Log.d("MainActivity", "Event Tag IDs: $eventTagIds")
-             mainViewModel.insertEventWithTags(event, eventTagIds)
-         }
-         mainViewModel.insertUserAccount(user)
-
-         mainViewModel.updateUserTags(1, listOf(1,5))
-    }*/
-
-
 }

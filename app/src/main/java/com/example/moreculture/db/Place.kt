@@ -1,11 +1,9 @@
 package com.example.moreculture.db
 
-import androidx.room.Embedded
+
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import androidx.room.Relation
-import org.osmdroid.util.GeoPoint
 
 
 // Entity class for the places table

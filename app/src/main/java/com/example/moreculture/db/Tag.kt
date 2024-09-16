@@ -8,13 +8,14 @@ import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
-
+// Tag Entity
 @Entity
 data class Tag(
     @PrimaryKey(autoGenerate = true) val tag_id: Int = 0,
     @ColumnInfo(name = "tag_name") val tagName: String
 )
 
+// Event cross-reference entity
 @Entity(
     tableName = "event_tags",
     primaryKeys = ["event_id", "tag_id"],
@@ -38,6 +39,7 @@ data class EventWithTags(
     val tags: List<Tag>
 )
 
+// User cross-reference entity
 @Entity(
     tableName = "user_tags",
     primaryKeys = ["user_id", "tag_id"],

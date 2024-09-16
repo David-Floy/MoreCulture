@@ -1,14 +1,8 @@
 package com.example.moreculture.db
 
 
-import androidx.activity.result.launch
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
@@ -42,7 +36,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
 
 
-    //Events
+    // Events
     // Important search
     fun eventsForPlaceWithTags(placeId : Int, selectedTagIds: List<Int>): Flow<List<Event>> = repository.getEventsForPlaceWithTags(placeId, selectedTagIds)
 

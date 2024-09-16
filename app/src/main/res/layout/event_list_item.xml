@@ -16,49 +16,51 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/eventPictureList"
+            <WebView
+                android:id="@+id/eventWebPictureList"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintEnd_toStartOf="@+id/eventTitlelList"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/test_picture" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/eventTitlelList"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                tools:text=" test test test test test test test test test test test test "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/eventPictureList"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/eventWebPictureList"
+                app:layout_constraintTop_toTopOf="@+id/eventWebPictureList"
+                tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
 
             <TextView
                 android:id="@+id/eventLocationList"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                tools:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/eventPictureList"
-                app:layout_constraintTop_toBottomOf="@+id/eventTitlelList" />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/eventWebPictureList"
+                app:layout_constraintTop_toBottomOf="@+id/eventTitlelList"
+                tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
 
             <TextView
                 android:id="@+id/eventDistanceList"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/eventLocationList"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/eventLocationList"
-                app:layout_constraintTop_toBottomOf="@+id/eventTitlelList"
                 tools:text="10 Km" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

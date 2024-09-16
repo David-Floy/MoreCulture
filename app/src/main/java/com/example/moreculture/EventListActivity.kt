@@ -10,16 +10,13 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
-
 import android.view.View
 import android.widget.Toast
-
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MoreCulture.R
@@ -46,11 +43,11 @@ class EventListActivity : AppCompatActivity() {
 
     var userGeoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
 
+    // RecyclerView and adapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventAdapter: EventListRecyclerViewAdapter
-    var tagUserList: List<Tag> = emptyList()
 
-
+    // View Model
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
@@ -69,15 +66,15 @@ class EventListActivity : AppCompatActivity() {
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
 
 
+        // Set up RecyclerView
         recyclerView =
             findViewById(R.id.recyclerViewEventList)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        eventAdapter = EventListRecyclerViewAdapter(this)
+        eventAdapter = EventListRecyclerViewAdapter(this, this)
         recyclerView.adapter = eventAdapter
 
-        //
+
+        // Check for location permission
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -90,7 +87,8 @@ class EventListActivity : AppCompatActivity() {
                 LOCATION_PERMISSION_REQUEST_CODE
             )
         } else {
-            // Permission already granted, proceed with location setup
+            // Permission already granted
+            // Get the last known location
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 locationManager.requestLocationUpdates(
@@ -106,35 +104,34 @@ class EventListActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        // Get the last known user location
-        // Initial search with mode 1 when the activity is created
+
+        // Fetch events
         searchDb(1)
 
         // Set click listeners for the top filter buttons
         binding?.buttonFeed?.setOnClickListener {
-
             eventAdapter.ResetEventList()
             searchDb(1)
             checkVisibility()
         }
         binding?.buttonAll?.setOnClickListener {
-
             eventAdapter.ResetEventList()
             searchDb(2)
             checkVisibility()
-
         }
         binding?.buttonClose?.setOnClickListener {
             eventAdapter.ResetEventList()
             searchDb(3)
             checkVisibility()
         }
+
         checkVisibility()
 
         // Home Button
         binding?.homeButton?.setOnClickListener {
             finish()
         }
+        // Map Button
         binding?.mapButton?.setOnClickListener {
             val intent = Intent(this, MapViewActivity::class.java)
             intent.putExtra("UserPosition", userGeoPoint.toString())
@@ -142,19 +139,20 @@ class EventListActivity : AppCompatActivity() {
         }
     }
 
-
+    // Location Listener
     private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val latitude = location.latitude
             val longitude = location.longitude
+
             userGeoPoint = GeoPoint(latitude, longitude)
             Log.d("GPS", "this is my location $userGeoPoint")
+
             eventAdapter.ResetEventList()
             searchDb(1)
             checkVisibility()
 
-            // Optionally remove updates after receiving the first location
             locationManager.removeUpdates(this)
         }
     }
@@ -235,14 +233,14 @@ class EventListActivity : AppCompatActivity() {
 
 
     // Convert a string to a GeoPoint
-    fun toGeoPoint(value: String?): GeoPoint? {
+    private fun toGeoPoint(value: String?): GeoPoint? {
         return value?.let {
             val (lat, lng) = it.split(",")
             GeoPoint(lat.toDouble(), lng.toDouble())
         }
     }
 
-
+    // Handle the result of the permission request
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -250,6 +248,8 @@ class EventListActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            // Permission granted
+            // Get the last known location
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -265,7 +265,11 @@ class EventListActivity : AppCompatActivity() {
         } else {
             // Permission denied
             setupUi()
-            Toast.makeText(applicationContext, "Die App benötigt GPS-Berechtigung", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                "Die App benötigt GPS-Berechtigung",
+                Toast.LENGTH_LONG
+            ).show()
 
         }
     }

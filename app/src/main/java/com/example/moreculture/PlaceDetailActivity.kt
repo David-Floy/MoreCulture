@@ -19,14 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MoreCulture.R
 import com.example.MoreCulture.databinding.ActivityPlaceDetailBinding
-import com.example.moreculture.db.Event
 import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
 import com.example.moreculture.db.Place
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.osmdroid.api.IMapController
@@ -36,32 +34,33 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 
-class PlaceDetailActivity : AppCompatActivity()  {
+class PlaceDetailActivity : AppCompatActivity() {
 
 
-    private  var binding: ActivityPlaceDetailBinding? = null
+    private var binding: ActivityPlaceDetailBinding? = null
 
-    private val mainViewModel : MainViewModel by viewModels {
+    private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MainApplication).repository)
     }
 
-    lateinit var place : Place
+    // Place Details
+    lateinit var place: Place
+    private var distance: Double = 0.0
 
-    private var distance : Double = 0.0
-
+    // RecyclerView
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventAdapter: EventListRecyclerViewAdapter
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
     // Place attributes
-    var latitude : Double = 0.0
-    var longitude :Double = 0.0
-    var geoPoint : GeoPoint = GeoPoint(52.5200, 13.4050)
-    var center : GeoPoint = GeoPoint(52.5200, 13.4050)
-    var map : MapView? = null
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    var geoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
+    var center: GeoPoint = GeoPoint(52.5200, 13.4050)
+    var map: MapView? = null
 
-    lateinit var marker : Marker
+    lateinit var marker: Marker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,18 +70,21 @@ class PlaceDetailActivity : AppCompatActivity()  {
         // setup RecyclerView
         recyclerView =
             findViewById(R.id.recyclerViewLocation)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        eventAdapter = EventListRecyclerViewAdapter(this)
+        eventAdapter = EventListRecyclerViewAdapter(this, this)
         recyclerView.adapter = eventAdapter
 
 
         binding?.backHomeButton?.setOnClickListener {
             finish()
         }
+
+        // Get user position from intent
         val userPositionString = intent.getStringExtra("USER_POSITION")
-        geoPoint = GeoPoint(userPositionString!!.split(",")[0].toDouble(), userPositionString.split(",")[1].toDouble())
+        geoPoint = GeoPoint(
+            userPositionString!!.split(",")[0].toDouble(),
+            userPositionString.split(",")[1].toDouble()
+        )
 
         // MapView settings
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -98,24 +100,15 @@ class PlaceDetailActivity : AppCompatActivity()  {
                 LOCATION_PERMISSION_REQUEST_CODE
             )
         } else {
-            // Permission already granted, proceed with location setup
-            /*val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    0L,
-                    0f,
-                    locationListener
-                )
-            }*/
+
             setUpPageDetails()
         }
-
 
 
     }
 
 
+    // Get user position from GPS
     private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -145,21 +138,23 @@ class PlaceDetailActivity : AppCompatActivity()  {
     }
 
     // Setup Page UI
-    private fun setUpPageDetails(){
+    private fun setUpPageDetails() {
+        // Get place details from intent
         val placeName = intent.getStringExtra("PLACE_NAME")
+
         lifecycleScope.launch(Dispatchers.IO) {
-           place = mainViewModel.getPlaceByName(placeName!!)
+            // Get place from database
+            place = mainViewModel.getPlaceByName(placeName!!)
+
             withContext(Dispatchers.Main) {
-
+                // Set place details to UI
                 binding?.locationNameText?.text = place.location_name
-
                 distance = GeoUtility().calculateDistance(geoPoint, toGeoPoint(place.geoPoint)!!)
                 searchDb()
                 binding?.placeDistanceDetail?.text = String.format(
                     "%.0f km",
                     distance
                 )
-
                 binding?.placeDescription?.text = place.location_description
                 binding?.placeUrl?.text = place.url
 
@@ -176,7 +171,7 @@ class PlaceDetailActivity : AppCompatActivity()  {
 
         }
 
-        }
+    }
 
     private fun addMarker(center: GeoPoint?) {
         marker = Marker(map)
@@ -188,17 +183,19 @@ class PlaceDetailActivity : AppCompatActivity()  {
         map?.invalidate()
     }
 
-    private  fun searchDb() {
+    // Search for events in database
+    private fun searchDb() {
         lifecycleScope.launch(Dispatchers.IO) {
 
-            val userRadius = mainViewModel.getUserRadius()
             val placeData =
                 mutableMapOf<Int, Triple<Double, String, Int>>() // Store place data
 
             // Fetch places and events based on the selected mode
-
             val allEvents = mainViewModel.getEventForPlace(place.id).first()
-            allEvents.forEach { event -> placeData[event.event_id] = Triple(distance, place.location_name, place.id) }
+
+            allEvents.forEach { event ->
+                placeData[place.id] = (Triple(distance, place.location_name, place.id))
+            }
 
 
             withContext(Dispatchers.Main) {
@@ -210,6 +207,7 @@ class PlaceDetailActivity : AppCompatActivity()  {
         }
     }
 
+    // Handle permission request result
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -232,7 +230,11 @@ class PlaceDetailActivity : AppCompatActivity()  {
         } else {
             // Permission denied
             setUpPageDetails()
-            Toast.makeText(applicationContext, "Die App benötigt GPS-Berechtigung", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                "Die App benötigt GPS-Berechtigung",
+                Toast.LENGTH_LONG
+            ).show()
 
         }
     }
