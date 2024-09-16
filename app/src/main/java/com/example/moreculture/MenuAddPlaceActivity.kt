@@ -85,6 +85,10 @@ class MenuAddPlaceActivity : AppCompatActivity() {
             binding?.placeDescription?.setText(placeDescription)
         }
 
+        binding?.backHomeButton?.setOnClickListener {
+            finish()
+        }
+
         // Location confirm button
         binding?.locationConfrim?.setOnClickListener {
 

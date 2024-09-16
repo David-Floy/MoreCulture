@@ -143,7 +143,7 @@ class EventListRecyclerViewAdapter(private var activtiy: Activity, private val c
             connection.requestMethod = "HEAD"
             connection.connectTimeout = 3000
             connection.useCaches = false // Disable caching
-            connection.instanceFollowRedirects = true // Follow redirects
+            connection.instanceFollowRedirects = false // Follow redirects
 
             val responseCode = connection.responseCode
             val isAvailable = responseCode == HttpURLConnection.HTTP_OK ||
