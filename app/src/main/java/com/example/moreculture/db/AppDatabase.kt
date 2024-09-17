@@ -11,7 +11,7 @@ import com.example.moreculture.GeoPointConverter
 // Imports DAO classes
 @Database(
     entities = [Place::class, Event::class, Tag::class, EventTagCrossRef::class, UserAccount::class, UserTagCrossRef::class],
-    version = 5
+    version = 6
 )
 
 @TypeConverters(GeoPointConverter::class)
@@ -29,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "main_db_test"
+                    "main_db"
                 ).build()
                 INSTANCE = instance
                 instance

@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center_horizontal"
-                android:text="Technik"
+                android:text="@string/technik"
                 android:textColor="@android:color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,9 @@
                         android:id="@+id/textView26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hintergrundgedanken"
+                        android:padding="5dp"
+                        android:text="@string/hintergrundgedanken"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +100,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Die App soll Menschen unterstützen, Kulturveranstaltungen passend zu ihren Interessen zu entdecken. Die Idee dazu entstand in einem anderen Seminar, bei dem ich gemeinsam mit weiteren Teilnehmern eine Umfrage in einem Theater durchgeführt habe. Im Gespräch mit mehreren Theaterbesuchern wurde deutlich, dass viele das Kulturangebot in Köln als zu umfangreich und unübersichtlich empfinden."
+                        android:padding="5dp"
+                        android:text="@string/die_app_soll_menschen_unterst_tzen_kulturveranstaltungen_passend_zu_ihren_interessen_zu_entdecken_die_idee_dazu_entstand_in_einem_anderen_seminar_bei_dem_ich_gemeinsam_mit_weiteren_teilnehmern_eine_umfrage_in_einem_theater_durchgef_hrt_habe_im_gespr_ch_mit_mehreren_theaterbesuchern_wurde_deutlich_dass_viele_das_kulturangebot_in_k_ln_als_zu_umfangreich_und_un_bersichtlich_empfinden"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -108,7 +112,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Die App nutzt einen von mir erstellten Katalog, der Kulturveranstaltungen und Einrichtungen in und um Köln umfasst. Außerdem gibt es die Option, neue Kultureinrichtungen und Events hinzuzufügen. Eigentlich wäre diese Funktion nur für Admins zugänglich, aber die Entwicklung eines Accountsystems hätte zu viel Zeit in Anspruch genommen."
+                        android:padding="5dp"
+                        android:text="@string/die_app_nutzt_einen_von_mir_erstellten_katalog_der_kulturveranstaltungen_und_einrichtungen_in_und_um_k_ln_umfasst_au_erdem_gibt_es_die_option_neue_kultureinrichtungen_und_events_hinzuzuf_gen_da_es_sich_um_eine_demo_handelt_und_nicht_um_ein_fertiges_produkt_mit_server_backend_sind_alle_funktionen_f_r_jeden_zug_nglich_der_event_katalog_ist_ebenfalls_nicht_zu_100_akkurat_was_bedeutet_dass_preise_termine_und_uhrzeiten_von_der_realit_t_abweichen_k_nnen_es_werden_auch_events_angezeigt_die_bereits_stattgefunden_haben_bei_einer_vollst_ndigen_bereitstellung_der_app_w_rde_das_server_backend_nat_rlich_nur_noch_bevorstehende_events_anzeigen_der_aktuelle_fokus_der_app_liegt_stark_auf_der_darstellung_von_geodaten_in_zukunft_plane_ich_weitere_funktionen_und_filter_hinzuzuf_gen_um_die_event_suche_weiter_zu_verbessern"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView39" />
@@ -133,7 +139,9 @@
                         android:id="@+id/textView53"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Technik"
+                        android:padding="5dp"
+                        android:text="@string/technik"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -143,7 +151,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Die App verwendet Osmdroid OpenStreetMaps als Grundlage für alle Kartenansichten und Room-Datenbanken für die Speicherung der App-Daten. Die Datenbank ist dabei wie folgt aufgebaut:"
+                        android:padding="5dp"
+                        android:text="@string/die_app_verwendet_osmdroid_openstreetmaps_als_grundlage_f_r_alle_kartenansichten_und_room_datenbanken_f_r_die_speicherung_der_app_daten_die_datenbank_ist_dabei_wie_folgt_aufgebaut"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView53" />
@@ -151,17 +161,16 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView12"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_height="400dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintEnd_toEndOf="@id/textView36"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView41">
 
                         <ImageView
                             android:id="@+id/imageView5"
                             android:layout_width="wrap_content"
-                            android:layout_height="400dp"
+                            android:layout_height="match_parent"
                             app:srcCompat="@drawable/db_description" />
                     </androidx.cardview.widget.CardView>
 
@@ -169,11 +178,12 @@
                         android:id="@+id/textView36"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Die Tags werden in einer Cross-Reference-Tabelle gespeichert. Die PlaceID im Event-Objekt ist mit der ID eines Ortes verknüpft, damit das Event eine gültige Referenz auf einen Ort hat."
+                        android:padding="5dp"
+                        android:text="@string/die_tags_der_events_und_user_werden_in_einer_cross_reference_tabelle_gespeichert_die_placeid_im_event_objekt_ist_mit_der_id_eines_ortes_verkn_pft_damit_das_event_eine_g_ltige_referenz_auf_einen_ort_hat"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cardView12" />
+                        app:layout_constraintTop_toBottomOf="@+id/cardView12" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -196,7 +206,9 @@
                         android:id="@+id/textView28"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Koordinaten und Suche"
+                        android:padding="5dp"
+                        android:text="@string/koordinaten_und_suche"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -206,7 +218,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Die Distanz zwischen den Koordinaten wird mit dieser Formel berechnet: distance = sqrt(dx * dx + dy * dy)  mit distance: Entfernung in km  dx = 111.3 * cos(lat) * (lon1 - lon2) lat = (lat1 + lat2) / 2 * 0.01745 dy = 111.3 * (lat1 - lat2) lat1, lat2, lon1, lon2: Breite, Länge in Grad. "
+                        android:padding="5dp"
+                        android:text="@string/die_distanz_zwischen_den_koordinaten_wird_mit_dieser_formel_berechnet_distance_sqrt_dx_dx_dy_dy_mit_distance_entfernung_in_km_dx_111_3_cos_lat_lon1_lon2_lat_lat1_lat2_2_0_01745_dy_111_3_lat1_lat2_lat1_lat2_lon1_lon2_breite_l_nge_in_grad"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView28" />
@@ -216,7 +230,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Der vom Nutzer festgelegte Radius wird benötigt, um zu überprüfen, ob sich ein Event bzw. der Veranstaltungsort innerhalb des eingestellten Bereichs befindet. Die drei verschiedenen Filter möglichkeiten erlauben es dem user zwischen, distanze-tag übereinstimmung, tag übereinstimmung und distanze zu filtern. Tags werden im UI in die Kategorien &quot;Mobilität&quot; und &quot;Kultur&quot; unterteilt, befinden sich jedoch im Backend in derselben Tabelle."
+                        android:padding="5dp"
+                        android:text="@string/der_vom_nutzer_festgelegte_radius_wird_ben_tigt_um_zu_berpr_fen_ob_sich_ein_event_bzw_der_veranstaltungsort_innerhalb_des_eingestellten_bereichs_befindet_die_drei_verschiedenen_filter_m_glichkeiten_erlauben_es_dem_user_zwischen_distanze_tag_bereinstimmung_tag_bereinstimmung_und_distanze_bereinstimmung_zu_filtern_tags_werden_im_ui_in_die_kategorien_quot_mobilit_t_quot_und_quot_kultur_quot_unterteilt_befinden_sich_jedoch_im_backend_in_derselben_tabelle"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -229,7 +245,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:layout_constraintTop_toBottomOf="@id/cardView16"
-                tools:layout_editor_absoluteX="5dp" >
+                tools:layout_editor_absoluteX="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -240,7 +256,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="UX"
+                        android:padding="5dp"
+                        android:text="@string/ux"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -250,7 +268,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Das UI ist vom Aufbau her von Karteikarten inspiriert, um dem Nutzer eine klare Orientierung zu bieten. Die &quot;Top-Island&quot; zeigt an, wo man sich gerade befindet, und bietet Buttons zum navigieren. Die &quot;Bottom-Island&quot; auf der Startseite und der Event-Liste vereinfacht die Nutzung, indem sie die wichtigsten Funktionen der App in einem zentralen Bereich zusammenfasst. Das Tutorial erklärt dabei, wie das UI aufgebaut ist und welche Funktionen die einzelnen Buttons haben. Die Bilder der Events werden über WebViews dargestellt. Das ist zwar nicht ideal, ermöglicht jedoch die geräteübergreifende Anzeige eigener Bilder, ohne einen Server verwenden zu müssen. Bevor die Bilder angezeigt werden, wird überprüft, ob die URL verfügbar ist. Sollte das nicht der Fall sein, wird ein Standardbild angezeigt."
+                        android:layout_marginBottom="30dp"
+                        android:padding="5dp"
+                        android:text="@string/das_ui_baut_auf_dem_konzept_von_karteikarten_auf_die_quot_top_island_quot_zeigt_an_wo_man_sich_gerade_befindet_und_bietet_buttons_zum_navigieren_die_quot_bottom_island_quot_auf_der_startseite_und_der_event_liste_vereinfacht_die_nutzung_indem_sie_die_wichtigsten_funktionen_der_app_in_einem_zentralen_bereich_zusammenfasst_das_tutorial_erkl_rt_dabei_wie_das_ui_aufgebaut_ist_und_welche_funktionen_die_einzelnen_buttons_besitzen_die_bilder_der_events_werden_mithilfe_von_glide_ber_die_hinterlegte_url_in_imageviews_geladen_dadurch_k_nnen_eigene_bilder_ger_te_bergreifend_angezeigt_werden_ohne_einen_server_verwenden_zu_m_ssen_glide_berpr_ft_ob_die_bild_url_verf_gbar_ist_sollte_dies_nicht_der_fall_sein_wird_ein_standardbild_angezeigt_w_hrend_glide_die_bilder_in_das_imageview_l_dt_wird_ein_platzhalterbild_angezeigt_damit_das_layout_w_hrend_des_ladens_stabil_bleibt_und_sich_nicht_verschiebt_mein_ziel_bei_der_gestaltung_des_uis_war_es_ein_minimalistisches_aber_dennoch_funktionales_design_zu_schaffen_das_die_nutzer_intuitiv_bedienen_k_nnen"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView37" />

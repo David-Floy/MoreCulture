@@ -20,12 +20,17 @@ class TutorialEventlistActivity : AppCompatActivity() {
 
         binding?.backButton?.setOnClickListener {
             val intent = Intent(this, TutorialHomeActivity::class.java)
+            startActivity(intent)
 
         }
 
         binding?.nextButton?.setOnClickListener {
-            val intent = Intent(this, TutorialWelcomActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
+            val editor = prefs.edit()
+            editor.putBoolean("hasSeenTutorial", true)
+            editor.apply()
             startActivity(intent)
+            finish()
         }
         binding?.skipButton?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

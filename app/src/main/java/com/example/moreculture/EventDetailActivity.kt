@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.TypeConverter
+import com.bumptech.glide.Glide
+import com.example.MoreCulture.R
 import com.example.MoreCulture.databinding.ActivityEventDetailBinding
 import com.example.moreculture.db.Event
 import com.example.moreculture.db.MainApplication
@@ -94,28 +96,12 @@ class EventDetailActivity : AppCompatActivity() {
                 binding?.eventDescription?.text = event.event_description
                 binding?.eventPrice?.text = event.event_price.toString()
 
-                // WebView settings
-                val viewSettings = binding?.ImageWebVIew?.settings
-                viewSettings?.loadWithOverviewMode = true
-                viewSettings?.useWideViewPort = true
-
-                // Set image url
-                if (event.image_url == "") {
-                    binding?.ImageWebVIew?.loadUrl("https://img.zeit.de/kultur/2021-06/theater-pandemie-zuschauer-kultur-oeffnung-teaser/wide__1300x731")
-                } else {
-                    binding?.ImageWebVIew?.loadUrl(event.image_url!!)
-                    // Check if image is available
-                    Thread {
-                        val isAvailable = isUrlAvailable(event.image_url!!) // No need for !! here
-                        runOnUiThread {
-                            if (isAvailable) {
-                                binding?.ImageWebVIew?.loadUrl(event.image_url!!)
-                            } else {
-                                binding?.ImageWebVIew?.loadUrl("https://img.zeit.de/kultur/2021-06/theater-pandemie-zuschauer-kultur-oeffnung-teaser/wide__1300x731")
-                            }
-                        }
-                    }.start()
-                }
+                // ImageView settings
+                Glide.with(this@EventDetailActivity)
+                    .load(event.image_url)
+                    .placeholder(R.drawable.test_picture)
+                    .error(R.drawable.test_picture)
+                    .into(binding?.ImageViewDetail!!)
 
                 // Update Tag background
                 updateTagBackgrounds(eventTags)

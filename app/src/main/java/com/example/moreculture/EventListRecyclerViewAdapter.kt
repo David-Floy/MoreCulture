@@ -7,9 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
+
+import android.widget.ImageView
 import android.widget.TextView
+
+
 import androidx.recyclerview.widget.RecyclerView
+
+import com.bumptech.glide.Glide
 import com.example.MoreCulture.R
 import com.example.moreculture.db.Event
 import java.net.HttpURLConnection
@@ -42,8 +47,15 @@ class EventListRecyclerViewAdapter(private var activtiy: Activity, private val c
         val placeName = placeName.find { it.first == currentEvent.place_id }?.second.toString()
         holder.eventPlaceName.text = placeName
 
+        Glide.with(this@EventListRecyclerViewAdapter.context)
+            .load(currentEvent.image_url)
+            .placeholder(R.drawable.test_picture)
+            .error(R.drawable.test_picture)
+           .into(holder.eventWebPictureList)
+
+
         // Set up WebView for picture
-        val viewSettings = holder.eventWebPictureList.settings
+        /*val viewSettings = holder.eventWebPictureList.settings
         viewSettings.loadWithOverviewMode = true
         viewSettings.useWideViewPort = true
 
@@ -66,9 +78,10 @@ class EventListRecyclerViewAdapter(private var activtiy: Activity, private val c
 
                 }
             }.start()
+            }*/
 
 
-        }
+
         // Calculate event distance and format it as a string
         val eventDistance =
             placeDistance.find { it.first == currentEvent.place_id }?.second?.let { distance ->
@@ -104,7 +117,7 @@ class EventListRecyclerViewAdapter(private var activtiy: Activity, private val c
         val eventTitlelList: TextView = itemView.findViewById(R.id.eventTitlelList)
         val eventPlaceName: TextView = itemView.findViewById(R.id.eventLocationList)
         val eventPlaceDistance: TextView = itemView.findViewById(R.id.eventDistanceList)
-        val eventWebPictureList: WebView = itemView.findViewById(R.id.eventWebPictureList)
+        val eventWebPictureList: ImageView = itemView.findViewById(R.id.eventWebPictureList)
 
     }
 

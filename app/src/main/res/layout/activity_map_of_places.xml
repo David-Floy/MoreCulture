@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Tippe auf den Ort, den du sehen möchtest."
+            android:text="@string/tippe_auf_den_ort_den_du_sehen_m_chtest"
             android:textAlignment="center"
             android:textSize="16sp" />
     </androidx.cardview.widget.CardView>

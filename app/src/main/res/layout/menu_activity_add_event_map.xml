@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Wähle eine Kultureinrichtung aus, zu der du ein Event erstellen möchtest."
+            android:text="@string/w_hle_eine_kultureinrichtung_aus_zu_der_du_ein_event_erstellen_m_chtest"
             android:textSize="16sp" />
     </androidx.cardview.widget.CardView>
 

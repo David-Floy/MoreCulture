@@ -15,15 +15,44 @@ interface EventDao {
     @Query("SELECT * FROM events WHERE place_id = :placeId")
     fun getEventsForPlace(placeId: Int): Flow<List<Event>>
 
-    // Get events witch meet the selected tagsIds and from a specific place
+
+
     @Query(
         """
-        SELECT DISTINCT e.* FROM events e
-    INNER JOIN event_tags et ON e.event_id = et.event_id
-    WHERE e.place_id = :placeId AND et.tag_id IN (:selectedTagIds)
-        """
+    SELECT DISTINCT e.*
+    FROM events e
+    WHERE
+      e.place_id = :placeId
+      AND e.event_id IN (
+        SELECT et2.event_id
+        FROM event_tags et2
+        WHERE
+          et2.tag_id IN (:selectedTagIds)
+          AND et2.tag_id BETWEEN 1 AND 10
+      )
+      AND (
+        SELECT COUNT(DISTINCT tag_id)
+        FROM event_tags
+        WHERE
+          event_id = e.event_id
+          AND tag_id IN (:selectedTagIds)
+          AND tag_id BETWEEN 11 AND 16
+      ) = (
+        SELECT COUNT(DISTINCT tag_id)
+        FROM (
+          SELECT *
+          FROM event_tags
+          WHERE
+            tag_id IN (:selectedTagIds)
+        ) AS et3
+        WHERE
+          et3.tag_id BETWEEN 11 AND 16
+      )
+    """
     )
     fun getEventsForPlaceWithTags(placeId: Int, selectedTagIds: List<Int>): Flow<List<Event>>
+
+
 
     // Get tagId List for a specific event
     @Query("SELECT tag_id FROM event_tags WHERE event_id = :eventId")

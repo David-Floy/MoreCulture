@@ -1,6 +1,7 @@
 package com.example.moreculture
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -91,10 +92,14 @@ class AccountEditActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 mainViewModel.updateUser(userAccount)
                 mainViewModel.updateUserTags(1, userSelectedTags)
-
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@AccountEditActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    Log.d("userSelectedTags", userSelectedTags.toString())
+                }
             }
-            Log.d("userSelectedTags", userSelectedTags.toString())
-            finish()
+            //Log.d("userSelectedTags", userSelectedTags.toString())
+
         }
         // Set up back button click listener
         binding?.backHomeButton?.setOnClickListener {

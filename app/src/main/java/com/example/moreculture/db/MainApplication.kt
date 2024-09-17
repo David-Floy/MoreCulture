@@ -24,7 +24,7 @@ class MainApplication : Application() {
         super.onCreate()
 
         // Check and delete old database if needed (version mismatch) ---> NEEDS TO BE DELETED BEFORE NEXT RELEASE
-        checkAndDeleteOldDatabase(this, "main_db_test", 5)
+        checkAndDeleteOldDatabase(this, "main_db", 6)
 
 
         // Configuration for MapView needed to access the map tile Server
@@ -36,7 +36,7 @@ class MainApplication : Application() {
             val db = Room.databaseBuilder(
                 applicationContext,
                 AppDatabase::class.java,
-                "main_db_test"
+                "main_db"
             ).build()
 
             val placeDao = db.PlaceDao()

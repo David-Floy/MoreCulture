@@ -83,7 +83,7 @@
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/home_screem_t" />
+                    app:srcCompat="@drawable/home_screen_t" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="@string/map_doppel"
+                        android:text="@string/karte_aller_kultureinrichtungen"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"

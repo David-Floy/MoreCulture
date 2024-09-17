@@ -1,6 +1,7 @@
 package com.example.moreculture
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -111,7 +112,6 @@ class EventListActivity : AppCompatActivity() {
                 userGeoPoint = GeoPoint(lat, lon)
             }
             eventAdapter.ResetEventList()
-            searchDb(1)
             checkVisibility()
 
 
@@ -156,7 +156,8 @@ class EventListActivity : AppCompatActivity() {
 
         // Home Button
         binding?.homeButton?.setOnClickListener {
-            finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
         binding?.accountButton?.setOnClickListener{
             val intent = Intent(this, AccountEditActivity::class.java)
@@ -272,6 +273,7 @@ class EventListActivity : AppCompatActivity() {
     }
 
     // Handle the result of the permission request
+    @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

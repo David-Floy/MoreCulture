@@ -1,11 +1,14 @@
 package com.example.moreculture
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -110,6 +113,7 @@ class PlaceDetailActivity : AppCompatActivity() {
 
     // Get user position from GPS
     private val locationListener = object : LocationListener {
+        @SuppressLint("DefaultLocale")
         override fun onLocationChanged(location: Location) {
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val latitude = location.latitude
@@ -138,6 +142,7 @@ class PlaceDetailActivity : AppCompatActivity() {
     }
 
     // Setup Page UI
+    @SuppressLint("DefaultLocale")
     private fun setUpPageDetails() {
         // Get place details from intent
         val placeName = intent.getStringExtra("PLACE_NAME")
@@ -165,8 +170,14 @@ class PlaceDetailActivity : AppCompatActivity() {
                 val mapController: IMapController = map?.controller!!
                 mapController.animateTo(toGeoPoint(place.geoPoint))
                 addMarker(toGeoPoint(place.geoPoint))
-                map?.controller?.setZoom(13)
+                map?.controller?.setZoom(16)
                 marker.title = place.location_name
+
+
+                binding?.placeUrl?.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(place.url))
+                    startActivity(intent)
+                }
             }
 
         }
@@ -208,6 +219,7 @@ class PlaceDetailActivity : AppCompatActivity() {
     }
 
     // Handle permission request result
+    @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

@@ -3,12 +3,8 @@ package com.example.moreculture
 import android.R
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.MoreCulture.databinding.MenuActivityMapViewBinding
-import com.example.moreculture.db.MainApplication
-import com.example.moreculture.db.MainViewModel
-import com.example.moreculture.db.MainViewModelFactory
 import org.osmdroid.api.IMapController
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint

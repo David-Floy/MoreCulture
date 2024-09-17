@@ -27,7 +27,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Das war es auch schon mit der kleinen Einleitung. Jetzt bist du bereit Mehr Kultur zu erleben!"
+                android:text="@string/das_war_es_auch_schon_mit_der_kleinen_einleitung_jetzt_bist_du_bereit_mehr_kultur_zu_erleben"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -78,7 +78,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:clickable="true"
-            android:editable="true"
             android:padding="15dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -282,15 +281,14 @@
                 <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:gravity="center_horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/tag1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 
@@ -305,7 +303,7 @@
                         android:id="@+id/tag2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="20dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
@@ -321,7 +319,7 @@
                         android:id="@+id/tag3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="20dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
@@ -337,7 +335,7 @@
                         android:id="@+id/tag4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="20dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
@@ -353,7 +351,7 @@
                         android:id="@+id/tag5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="20dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
@@ -376,7 +374,7 @@
                         android:id="@+id/tag6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 
@@ -391,7 +389,7 @@
                         android:id="@+id/tag7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 
@@ -406,7 +404,7 @@
                         android:id="@+id/tag8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 
@@ -421,7 +419,7 @@
                         android:id="@+id/tag9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 
@@ -436,7 +434,7 @@
                         android:id="@+id/tag10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:clickable="true"
                         app:cardBackgroundColor="@color/selectedTag">
 

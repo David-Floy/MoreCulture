@@ -18,7 +18,7 @@ class MenuKotlinJavaActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.mapBackHomeButton?.setOnClickListener {
-            val intent = Intent(this, MenuMapViewActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
