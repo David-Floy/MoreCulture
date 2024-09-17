@@ -111,7 +111,8 @@ class MapViewActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 mainViewModel.updateUserRadius(userRadius)
                 withContext(Dispatchers.Main) {
-                    finish()
+                    val intent = Intent(this@MapViewActivity, EventListActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
@@ -274,11 +275,10 @@ class MapViewActivity : AppCompatActivity() {
                         index: Int?
                     ) {
                         val intent = Intent(this@MapViewActivity, PlaceDetailActivity::class.java)
-
                         //Log.d("PlaceName", (points?.get(index!!) as LabelledGeoPoint).getLabel())
                         intent.putExtra(
                             "PLACE_NAME",
-                            (points?.get(index!!) as LabelledGeoPoint).getLabel()
+                            (points?.get(index!!) as LabelledGeoPoint).getLabel().toString()
                         )
 
                         startActivity(intent)

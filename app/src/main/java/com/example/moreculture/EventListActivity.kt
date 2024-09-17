@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Criteria
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -25,14 +26,17 @@ import com.example.moreculture.db.Event
 import com.example.moreculture.db.MainApplication
 import com.example.moreculture.db.MainViewModel
 import com.example.moreculture.db.MainViewModelFactory
-import com.example.moreculture.db.Tag
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+
 
 class EventListActivity : AppCompatActivity() {
 
@@ -40,6 +44,7 @@ class EventListActivity : AppCompatActivity() {
 
     // Location permission request code and location setup
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    var map: MapView? = null
 
     var userGeoPoint: GeoPoint = GeoPoint(52.5200, 13.4050)
 
@@ -89,19 +94,41 @@ class EventListActivity : AppCompatActivity() {
         } else {
             // Permission already granted
             // Get the last known location
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+
+            // Get the location manager
+            val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+            val criteria = Criteria()
+            val bestProvider = locationManager.getBestProvider(criteria, false)
+            val location = locationManager.getLastKnownLocation(bestProvider!!)
+            try {
+                var lat = location!!.latitude
+                var lon = location!!.longitude
+                userGeoPoint = GeoPoint(lat, lon)
+            } catch (e: NullPointerException) {
+               var  lat = -1.0
+                var lon = -1.0
+                userGeoPoint = GeoPoint(lat, lon)
+            }
+            eventAdapter.ResetEventList()
+            searchDb(1)
+            checkVisibility()
+
+
+
+            /*if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
                     0L,
                     0f,
                     locationListener
                 )
-            }
+            }*/
             setupUi()
         }
 
     }
+
 
     private fun setupUi() {
 
@@ -131,6 +158,10 @@ class EventListActivity : AppCompatActivity() {
         binding?.homeButton?.setOnClickListener {
             finish()
         }
+        binding?.accountButton?.setOnClickListener{
+            val intent = Intent(this, AccountEditActivity::class.java)
+            this.startActivity(intent)
+        }
         // Map Button
         binding?.mapButton?.setOnClickListener {
             val intent = Intent(this, MapViewActivity::class.java)
@@ -153,7 +184,7 @@ class EventListActivity : AppCompatActivity() {
             searchDb(1)
             checkVisibility()
 
-            locationManager.removeUpdates(this)
+            //locationManager.removeUpdates(this)
         }
     }
 

@@ -73,6 +73,8 @@ class MapOfPlacesActivity : AppCompatActivity() {
         map?.setUseDataConnection(true)
         map?.setTileSource(TileSourceFactory.MAPNIK)
         map?.setMultiTouchControls(true)
+        map?.setBuiltInZoomControls(false)
+
         return map?.controller!!
     }
 
